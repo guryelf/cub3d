@@ -33,7 +33,7 @@ char	*hl_get_preproc_line(char *remainder, int fd)
 			return (NULL);
 		}
 		buffer[readed_bytes] = '\0';
-		remainder = ft_strjoin(remainder, buffer);
+		remainder = gnl_strjoin(remainder, buffer);
 	}
 	free(buffer);
 	return (remainder);
@@ -49,7 +49,7 @@ char	*hl_calculate_remainder(char *str)
 		i++;
 	if (str[i] == '\0')
 		return (NULL);
-	remainder = ft_strdup(&str[i + 1]);
+	remainder = gnl_strdup(&str[i + 1]);
 	return (remainder);
 }
 

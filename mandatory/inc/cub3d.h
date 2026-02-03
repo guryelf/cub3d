@@ -8,7 +8,7 @@
 #include "player.h"
 #include "ray.h"
 #include "vector2.h"
-#include "minilibx-linux/mlx.h"
+#include "mlx.h"
 
 
 #endif
