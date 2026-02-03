@@ -12,7 +12,7 @@
 *.map
 *.exp
 # *.gitignore
-*.compile_flags.txt
+compile_flags.txt
 # Precompiled Headers
 *.gch
 *.pch
