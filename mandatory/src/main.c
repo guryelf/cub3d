@@ -8,14 +8,9 @@ int main(int argc,char *argv[])
         write(2,"Invalid number of arguments\n",28);
         return 1;
     }
-    if(!ft_strchr(argv[1],'.'))
+    if(parse_file(argv[1]) != 0)
     {
-        write(2,"Invalid file\n",13);
-        return 1;
-    }
-    if(ft_strncmp(ft_strrchr(argv[1],'.'),".cub",4) != 0)
-    {
-        write(2,"Invalid file\n",13);
+        write(2,"Error while parsing the file\n",29);
         return 1;
     }
 }
