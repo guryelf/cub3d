@@ -1,0 +1,1 @@
+//Texture piksellerini (texel) alma
