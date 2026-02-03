@@ -1,5 +1,0 @@
--std=c++17
--Wall
--Wextra
--I/home/rakman/Codes/Cub3d/cub3d/include
--I/home/rakman/Codes/Cub3d/cub3d/src
