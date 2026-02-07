@@ -6,101 +6,116 @@
 /*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:24 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/07 04:47:56 by fguryel          ###   ########.fr       */
+/*   Updated: 2026/02/07 05:15:30 by fguryel          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "map.h"
-#include "get_next_line.h"
 
-char	*skip_spaces(char *line)
+static int	parse_color_values(char *line, t_texture *tex)
 {
+	char	**split;
+	int		i;
+
+	if (tex->set)
+		return (TEX_ERR_DUPLICATE);
 	while (*line && (*line == ' ' || *line == '\t'))
 		line++;
-	return (line);
+	split = ft_split(line, ',');
+	if (!split)
+		return (TEX_ERR_INVALID_COLOR);
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 3)
+	{
+		while (--i >= 0)
+			free(split[i]);
+		free(split);
+		return (TEX_ERR_INVALID_COLOR);
+	}
+	tex->r = ft_atoi(split[0]);
+	tex->g = ft_atoi(split[1]);
+	tex->b = ft_atoi(split[2]);
+	free(split[0]);
+	free(split[1]);
+	free(split[2]);
+	free(split);
+	if (tex->r < 0 || tex->r > 255 || tex->g < 0 || tex->g > 255
+		|| tex->b < 0 || tex->b > 255)
+		return (TEX_ERR_COLOR_RANGE);
+	tex->set = 1;
+	return (0);
 }
 
-char	*extract_path(char *line)
+static int	set_texture_path(char **dest, char *line, int offset)
 {
 	char	*path;
-	char	*end;
-	int		len;
+	int		err;
 
-	line = skip_spaces(line);
-	if (!*line || *line == '\n')
-		return (NULL);
-	end = line;
-	while (*end && *end != ' ' && *end != '\t' && *end != '\n')
-		end++;
-	len = end - line;
-	path = ft_substr(line, 0, len);
-	return (path);
-}
-
-int	validate_texture_file(const char *path)
-{
-	int	fd;
-	int	len;
-
-	if (!path || !*path)
+	if (*dest)
+		return (TEX_ERR_DUPLICATE);
+	path = extract_path(line + offset);
+	if (!path)
 		return (TEX_ERR_MISSING_PATH);
-	len = ft_strlen(path);
-	if (len < 5)
-		return (TEX_ERR_MISSING_PATH);
-	if (ft_strncmp(path + len - 4, ".xpm", 4) != 0)
-		return (TEX_ERR_INVALID_ID);
-	fd = open(path, O_DIRECTORY);
-	if (fd >= 0)
+	err = validate_texture_file(path);
+	if (err)
 	{
-		close(fd);
-		return (ERR_IS_DIRECTORY);
+		free(path);
+		return (err);
 	}
-	fd = open(path, O_RDONLY);
+	*dest = path;
+	return (0);
+}
+
+static int	process_line(char *line, t_map *map)
+{
+	int	type;
+
+	type = get_texture_type(line);
+	if (type == 0)
+		return (0);
+	if (type == 1)
+		return (set_texture_path(&map->no_path, line, 3));
+	if (type == 2)
+		return (set_texture_path(&map->so_path, line, 3));
+	if (type == 3)
+		return (set_texture_path(&map->we_path, line, 3));
+	if (type == 4)
+		return (set_texture_path(&map->ea_path, line, 3));
+	if (type == 5)
+		return (parse_color_values(line + 2, &map->floor));
+	return (parse_color_values(line + 2, &map->ceil));
+}
+
+int	parse_textures(const char *file_path, t_map *map)
+{
+	int		fd;
+	char	*line;
+	int		err;
+
+	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-		return (TEX_ERR_OPEN_FAILED);
-	close(fd);
-	return (0);
-}
-
-int	get_texture_type(char *line)
-{
-	line = skip_spaces(line);
-	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (1);
-	if (ft_strncmp(line, "SO ", 3) == 0)
-		return (2);
-	if (ft_strncmp(line, "WE ", 3) == 0)
-		return (3);
-	if (ft_strncmp(line, "EA ", 3) == 0)
-		return (4);
-	if (ft_strncmp(line, "F ", 2) == 0)
-		return (5);
-	if (ft_strncmp(line, "C ", 2) == 0)
-		return (6);
-	return (0);
-}
-
-void	print_texture_error(int error)
-{
-	const char	*msg;
-
-	if (error == TEX_ERR_INVALID_ID)
-		msg = "Error: Invalid texture identifier or extension\n";
-	else if (error == TEX_ERR_MISSING_PATH)
-		msg = "Error: Missing texture path\n";
-	else if (error == TEX_ERR_DUPLICATE)
-		msg = "Error: Duplicate texture/color definition\n";
-	else if (error == TEX_ERR_OPEN_FAILED)
-		msg = "Error: Cannot open texture file\n";
-	else if (error == TEX_ERR_INVALID_COLOR)
-		msg = "Error: Invalid color format (use R,G,B)\n";
-	else if (error == TEX_ERR_COLOR_RANGE)
-		msg = "Error: Color values must be 0-255\n";
-	else if (error == TEX_ERR_MISSING_ELEMENT)
-		msg = "Error: Missing texture or color element\n";
-	else if (error == ERR_IS_DIRECTORY)
-		msg = "Error: Texture path is a directory\n";
-	else
-		msg = "Error: Unknown texture parsing error\n";
-	write(2, msg, ft_strlen(msg));
+	err = 0;
+	line = get_next_line(fd);
+	while (line && !err)
+	{
+		err = process_line(line, map);
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (line)
+		free(line);
+	close(fd);
+	if (err)
+		print_texture_error(err);
+	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
+		|| !map->floor.set || !map->ceil.set)
+	{
+		if (!err)
+			print_texture_error(TEX_ERR_MISSING_ELEMENT);
+		return (1);
+	}
+	return (err != 0);
 }

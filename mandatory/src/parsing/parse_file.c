@@ -6,7 +6,7 @@
 /*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:24 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/07 04:32:31 by fguryel          ###   ########.fr       */
+/*   Updated: 2026/02/07 05:15:30 by fguryel          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -63,29 +63,6 @@ static int	validate_file_access(const char *path)
 	return (0);
 }
 
-static void	print_error(int error)
-{
-	const char	*msg;
-
-	if (error == ERR_NULL_FILENAME)
-		msg = "Error: NULL filename\n";
-	else if (error == ERR_EMPTY_STRING)
-		msg = "Error: Empty filename\n";
-	else if (error == ERR_TOO_SHORT)
-		msg = "Error: Filename too short\n";
-	else if (error == ERR_TRAILING_SPACE)
-		msg = "Error: Filename has trailing spaces\n";
-	else if (error == ERR_CASE_SENSITIVE)
-		msg = "Error: Extension must be lowercase .cub\n";
-	else if (error == ERR_WRONG_EXTENSION)
-		msg = "Error: Wrong extension (must be .cub)\n";
-	else if (error == ERR_IS_DIRECTORY)
-		msg = "Error: Path is a directory\n";
-	else
-		msg = "Error: Cannot open file\n";
-	write(2, msg, ft_strlen(msg));
-}
-
 int	parse_file(const char *file_path)
 {
 	int	error;
@@ -95,7 +72,7 @@ int	parse_file(const char *file_path)
 		error = validate_file_access(file_path);
 	if (error)
 	{
-		print_error(error);
+		print_file_parsing_error(error);
 		return (1);
 	}
 	return (0);
