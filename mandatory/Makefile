@@ -1,14 +1,14 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fguryel <fguryel@student.42.fr>            +#+  +:+       +#+         #
+#    By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2025/08/27 02:52:27 by fguryel          ###   ########.fr        #
+#    Updated: 2026/02/07 04:47:56 by fguryel          ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 NAME = cub3D
 
@@ -38,14 +38,15 @@ SRC_INIT = src/init/init_data.c \
 SRC_PARSING = src/parsing/check_map.c \
               src/parsing/parse_file.c \
               src/parsing/parse_map.c \
-              src/parsing/parse_textures.c
+              src/parsing/parse_textures.c \
+              src/parsing/parse_textures2.c
 
 SRC_RAYCASTING = src/raycasting/dda.c \
                  src/raycasting/math_utils.c \
                  src/raycasting/raycaster.c
 
 SRC_RENDER = src/render/draw_walls.c \
-             src/render/rebder_frame.c \
+             src/render/render_frame.c \
              src/render/textures.c
 
 SRC_LIBFT = lib/libft/ft_atoi.c \

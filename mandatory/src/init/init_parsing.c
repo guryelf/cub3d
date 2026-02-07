@@ -1,25 +1,38 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/07 04:32:15 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/07 04:32:16 by fguryel          ###   ########.fr       */
+/*   Created: 2026/02/07 04:32:12 by fguryel           #+#    #+#             */
+/*   Updated: 2026/02/07 04:32:13 by fguryel          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "cub3d.h"
-#include "libft.h"
+#include "map.h"
 
-int main(int argc,char *argv[])
+int	init_parsing(const char *file_path, t_map *map)
 {
-    if (argc != 2)
-    {
-        write(2,"Invalid number of arguments\n",28);
-        return 1;
-    }
-    if(parse_file(argv[1]) != 0)
-        return 1;
+	int	fd;
+
+	if (parse_file(file_path) != 0)
+		return (1);
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	if (parse_textures(fd, map) != 0)
+	{
+		close(fd);
+		return (1);
+	}
+	if (parse_map(fd, map) != 0)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	if (check_map(map) != 0)
+		return (1);
+	return (0);
 }
