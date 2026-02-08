@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 18:40:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/08 18:52:17 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/08 18:57:14 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,87 @@ static int	validate_walls(t_map *map)
 	return (0);
 }
 
+// Step 6: Flood fill validation - check if map is enclosed
+static int	flood_fill(char **grid, int x, int y, int width, int height)
+{
+	// Out of bounds check - if we reach edges, map is not enclosed
+	if (x < 0 || x >= width || y < 0 || y >= height)
+		return (1);
+	
+	// Already visited or wall
+	if (grid[y][x] == '1' || grid[y][x] == 'V')
+		return (0);
+	
+	// Mark as visited
+	grid[y][x] = 'V';
+	
+	// Recursively check all 4 directions
+	if (flood_fill(grid, x + 1, y, width, height) ||
+		flood_fill(grid, x - 1, y, width, height) ||
+		flood_fill(grid, x, y + 1, width, height) ||
+		flood_fill(grid, x, y - 1, width, height))
+		return (1);
+	
+	return (0);
+}
+
+static char	**copy_grid(t_map *map)
+{
+	char	**copy;
+	int		i;
+
+	copy = ft_calloc(map->height + 1, sizeof(char *));
+	if (!copy)
+		return (NULL);
+	
+	i = 0;
+	while (i < map->height)
+	{
+		copy[i] = ft_strdup(map->grid[i]);
+		if (!copy[i])
+		{
+			while (--i >= 0)
+				free(copy[i]);
+			free(copy);
+			return (NULL);
+		}
+		i++;
+	}
+	return (copy);
+}
+
+static void	free_grid_copy(char **grid, int height)
+{
+	int	i;
+
+	if (!grid)
+		return ;
+	i = 0;
+	while (i < height)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
+}
+
+static int	validate_enclosure(t_map *map)
+{
+	char	**grid_copy;
+	int		result;
+
+	grid_copy = copy_grid(map);
+	if (!grid_copy)
+		return (1);
+	
+	// Start flood fill from player position
+	result = flood_fill(grid_copy, map->player_x, map->player_y, 
+						map->width, map->height);
+	
+	free_grid_copy(grid_copy, map->height);
+	return (result);
+}
+
 int	check_map(t_map *map)
 {
 	if (!map || !map->grid || map->height <= 0)
@@ -184,6 +265,10 @@ int	check_map(t_map *map)
 	
 	// Step 5: Validate walls
 	if (validate_walls(map) != 0)
+		return (1);
+	
+	// Step 6: Flood fill validation
+	if (validate_enclosure(map) != 0)
 		return (1);
 	
 	return (0);
