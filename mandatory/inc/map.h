@@ -29,7 +29,6 @@ int				get_texture_type(char *line);
 int				parse_file(const char *file_path);
 int				parse_textures(const char *file_path, t_map *map);
 int				parse_map(const char *file_path, t_map *map);
-int				parse_player(t_map *map);
 int				check_map(t_map *map);
 int				init_parsing(const char *file_path, t_map *map);
 

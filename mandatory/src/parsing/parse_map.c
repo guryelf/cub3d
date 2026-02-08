@@ -142,32 +142,3 @@ int	parse_map(const char *file_path, t_map *map)
 		return (1);
 	return (0);
 }
-
-int	parse_player(t_map *map)
-{
-	int	x;
-	int	y;
-	int	player_count;
-
-	player_count = 0;
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (map->grid[y][x])
-		{
-			if (map->grid[y][x] == 'N' || map->grid[y][x] == 'S' ||
-				map->grid[y][x] == 'E' || map->grid[y][x] == 'W')
-			{
-				map->player_x = x;
-				map->player_y = y;
-				map->player_dir = map->grid[y][x];
-				map->grid[y][x] = '0';
-				player_count++;
-			}
-			x++;
-		}
-		y++;
-	}
-	return (player_count == 1 ? 0 : 1);
-}
