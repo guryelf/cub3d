@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: rakman <rakman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:12 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/07 05:18:47 by fguryel          ###   ########.fr       */
+/*   Updated: 2026/02/08 18:35:43 by rakman           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "map.h"
 
@@ -29,14 +29,38 @@ static void	init_map(t_map *map)
 	map->ceil.g = 0;
 	map->ceil.b = 0;
 	map->ceil.set = 0;
+	map->player_x = -1;
+	map->player_y = -1;
+	map->player_dir = 0;
 }
 
 int	init_parsing(const char *file_path, t_map *map)
 {
 	if (parse_file(file_path) != 0)
+	{
+		write(2, "Error: File parsing failed\n", 27);
 		return (1);
+	}
 	init_map(map);
 	if (parse_textures(file_path, map) != 0)
+	{
+		write(2, "Error: Texture parsing failed\n", 30);
 		return (1);
+	}
+	if (parse_map(file_path, map) != 0)
+	{
+		write(2, "Error: Map parsing failed\n", 26);
+		return (1);
+	}
+	if (check_map(map) != 0)
+	{
+		write(2, "Error: Map validation failed\n", 29);
+		return (1);
+	}
+	if (parse_player(map) != 0)
+	{
+		write(2, "Error: Player parsing failed\n", 29);
+		return (1);
+	}
 	return (0);
 }
