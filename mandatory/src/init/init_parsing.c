@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:12 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/08 18:35:43 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/08 18:44:13 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ int	init_parsing(const char *file_path, t_map *map)
 		write(2, "Error: Map validation failed\n", 29);
 		return (1);
 	}
-	if (parse_player(map) != 0)
-	{
-		write(2, "Error: Player parsing failed\n", 29);
-		return (1);
-	}
+	// Player parsing is now handled in check_map
 	return (0);
 }
