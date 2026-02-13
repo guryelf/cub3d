@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_parse_map.c                                    :+:      :+:    :+:   */
+/*   00_read_map_grid.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 22:01:22 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:07:43 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 01:05:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	count_map_lines(const char *file_path)
 	return (count);
 }
 
-int	parse_map(const char *file_path, t_map *map)
+int	read_map_grid(const char *file_path, t_map *map)
 {
 	map->height = count_map_lines(file_path);
 	if (map->height <= 0)
@@ -80,7 +80,7 @@ int	parse_map(const char *file_path, t_map *map)
 	if (!map->grid)
 		return (1);
 	map->width = 0;
-	if (read_map_grid(file_path, map) != 0)
+	if (read_grid_from_file(file_path, map) != 0)
 		return (1);
 	return (0);
 }

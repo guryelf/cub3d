@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_check_map.c                                    :+:      :+:    :+:   */
+/*   00_validate_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -70,7 +70,7 @@ static int	find_and_store_player(t_map *map)
 	return (count != 1);
 }
 
-int	check_map(t_map *map)
+int	validate_map(t_map *map)
 {
 	if (!map || !map->grid || map->height <= 0)
 		return (1);

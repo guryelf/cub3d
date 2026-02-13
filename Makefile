@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/14 00:57:21 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/14 01:04:17 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ SRC_EXIT = src/05_exit/00_clean_exit.c \
 
 SRC_PREPARE_DATA = src/00_initialize_game/00_validate_mapfile/00_validate_mapfile.c \
                    src/00_initialize_game/01_parse_mapfile/00_parse_mapfile.c \
-                   src/00_initialize_game/01_parse_mapfile/01_check_map/00_check_map.c \
-                   src/00_initialize_game/01_parse_mapfile/01_check_map/01_validate_walls.c \
-                   src/00_initialize_game/01_parse_mapfile/01_check_map/02_validate_enclosure.c \
-                   src/00_initialize_game/01_parse_mapfile/02_parse_map/00_parse_map.c \
-                   src/00_initialize_game/01_parse_mapfile/02_parse_map/01_read_map_grid.c \
+                   src/00_initialize_game/01_parse_mapfile/01_read_map_grid/00_read_map_grid.c \
+                   src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \
+                   src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
+                   src/00_initialize_game/01_parse_mapfile/02_validate_map/01_validate_walls.c \
+                   src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_colors.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parser_utils.c \
