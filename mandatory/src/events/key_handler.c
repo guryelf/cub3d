@@ -13,8 +13,8 @@ int	handle_keypress(int keycode, t_game *game)
 	else if (keycode == 100)
 		move_right(game);
 	else if (keycode == 65361)
-		rotate_left(game);
-	else if (keycode == 65363)
 		rotate_right(game);
+	else if (keycode == 65363)
+		rotate_left(game);
 	return (0);
 }
