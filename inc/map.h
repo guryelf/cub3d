@@ -31,5 +31,6 @@ int				parse_textures(const char *file_path, t_map *map);
 int				parse_map(const char *file_path, t_map *map);
 int				check_map(t_map *map);
 int				init_parsing(const char *file_path, t_map *map);
+void			free_map_data(t_map *map);
 
 #endif

@@ -1,7 +1,7 @@
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 #include <stdlib.h>
 
-static void	free_map_data(t_map *map)
+void	free_map_data(t_map *map)
 {
 	int	i;
 
@@ -24,6 +24,7 @@ static void	free_map_data(t_map *map)
 		}
 		free(map->grid);
 	}
+	get_next_line(-1);
 }
 
 int	clean_exit(t_game *game)

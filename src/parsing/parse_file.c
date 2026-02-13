@@ -32,7 +32,9 @@ static int	check_extension(const char *path, int len)
 
 static int	validate_filename(const char *path)
 {
-	int	len;
+	int			len;
+	const char	*basename;
+	int			i;
 
 	if (!path)
 		return (ERR_NULL_FILENAME);
@@ -43,6 +45,14 @@ static int	validate_filename(const char *path)
 		return (ERR_TOO_SHORT);
 	if (path[len - 1] == ' ')
 		return (ERR_TRAILING_SPACE);
+	basename = path;
+	i = len - 1;
+	while (i >= 0 && path[i] != '/')
+		i--;
+	if (i >= 0)
+		basename = path + i + 1;
+	if (basename[0] == '.')
+		return (ERR_ONLY_EXTENSION);
 	return (check_extension(path, len));
 }
 

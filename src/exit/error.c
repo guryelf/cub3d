@@ -22,6 +22,8 @@ void	print_file_parsing_error(int error)
 		msg = "Error: Empty filename\n";
 	else if (error == ERR_TOO_SHORT)
 		msg = "Error: Filename too short\n";
+	else if (error == ERR_ONLY_EXTENSION)
+		msg = "Error: Filename cannot start with a dot\n";
 	else if (error == ERR_TRAILING_SPACE)
 		msg = "Error: Filename has trailing spaces\n";
 	else if (error == ERR_CASE_SENSITIVE)

@@ -84,7 +84,14 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		if (remainder)
+		{
+			free(remainder);
+			remainder = NULL;
+		}
 		return (NULL);
+	}
 	rawline = hl_get_preproc_line(remainder, fd);
 	if (rawline == NULL)
 	{

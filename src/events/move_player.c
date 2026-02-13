@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 #include <math.h>
 
 static int	is_wall(t_game *game, double x, double y)

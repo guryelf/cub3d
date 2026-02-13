@@ -36,12 +36,12 @@ static void	init_map(t_map *map)
 
 int	init_parsing(const char *file_path, t_map *map)
 {
+	init_map(map);
 	if (parse_file(file_path) != 0)
 	{
 		write(2, "Error: File parsing failed\n", 27);
 		return (1);
 	}
-	init_map(map);
 	if (parse_textures(file_path, map) != 0)
 	{
 		write(2, "Error: Texture parsing failed\n", 30);

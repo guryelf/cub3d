@@ -1,16 +1,16 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rakman <rakman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:15 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/08 19:17:26 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/13 19:42:36 by fguryel          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	main(int argc, char *argv[])
 {
@@ -22,7 +22,10 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	if (init_parsing(argv[1], &game.map) != 0)
+	{
+		free_map_data(&game.map);
 		return (1);
+	}
 	if (init_mlx(&game) != 0)
 	{
 		write(2, "Error\nMLX initialization failed\n", 33);
