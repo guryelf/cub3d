@@ -21,11 +21,11 @@ static int	is_map_line(char *line)
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	
-	// Empty line is not a map line
+
 	if (!line[i] || line[i] == '\n')
 		return (0);
 		
-	// Map line should contain only these characters (and spaces/tabs)
+
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && 

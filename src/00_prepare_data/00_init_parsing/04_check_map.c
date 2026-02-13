@@ -22,7 +22,7 @@ static int	is_valid_char(char c)
 	return (c == '0' || c == '1' || c == ' ' || is_player_char(c));
 }
 
-// Step 1: Basic character validation
+
 static int	validate_characters(t_map *map)
 {
 	int	x, y;
@@ -42,7 +42,7 @@ static int	validate_characters(t_map *map)
 	return (0);
 }
 
-// Step 2: Player detection and count validation
+
 static int	find_and_store_player(t_map *map)
 {
 	int	x, y, count = 0;
@@ -58,23 +58,23 @@ static int	find_and_store_player(t_map *map)
 				map->player_x = x;
 				map->player_y = y;
 				map->player_dir = map->grid[y][x];
-				map->grid[y][x] = '0'; // Replace with empty space
+				map->grid[y][x] = '0'; 
 				count++;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (count != 1); // Should have exactly 1 player
+	return (count != 1); 
 }
 
-// Step 3: Normalize irregular map to rectangular
+
 static void	normalize_to_rectangle(t_map *map)
 {
 	int	i, j, cur_len;
 	char	*new_line;
 
-	// Find maximum width
+
 	map->width = 0;
 	i = 0;
 	while (i < map->height)
@@ -85,7 +85,7 @@ static void	normalize_to_rectangle(t_map *map)
 		i++;
 	}
 
-	// Extend all lines to max width
+
 	i = 0;
 	while (i < map->height)
 	{
@@ -101,7 +101,7 @@ static void	normalize_to_rectangle(t_map *map)
 				new_line[j] = map->grid[i][j];
 				j++;
 			}
-			// Fill remaining with spaces (will be converted to walls)
+			
 			while (j < map->width)
 			{
 				new_line[j] = ' ';
@@ -114,7 +114,7 @@ static void	normalize_to_rectangle(t_map *map)
 	}
 }
 
-// Step 4: Convert spaces to walls
+
 static void	replace_spaces_with_walls(t_map *map)
 {
 	int	x, y;
@@ -133,12 +133,12 @@ static void	replace_spaces_with_walls(t_map *map)
 	}
 }
 
-// Step 5: Basic wall validation (edges should be walls)
+
 static int	validate_walls(t_map *map)
 {
 	int	x, y;
 
-	// Check top and bottom edges
+
 	y = 0;
 	while (y < map->height)
 	{
@@ -148,13 +148,13 @@ static int	validate_walls(t_map *map)
 			while (x < map->width)
 			{
 				if (map->grid[y][x] == '0')
-					return (1); // Empty space on edge
+					return (1); 
 				x++;
 			}
 		}
 		else
 		{
-			// Check left and right edges
+			
 			if (map->grid[y][0] == '0' || map->grid[y][map->width - 1] == '0')
 				return (1);
 		}
@@ -163,21 +163,21 @@ static int	validate_walls(t_map *map)
 	return (0);
 }
 
-// Step 6: Flood fill validation - check if map is enclosed
+
 static int	flood_fill(char **grid, int x, int y, int width, int height)
 {
-	// Out of bounds check - if we reach edges, map is not enclosed
+	
 	if (x < 0 || x >= width || y < 0 || y >= height)
 		return (1);
 	
-	// Already visited or wall
+
 	if (grid[y][x] == '1' || grid[y][x] == 'V')
 		return (0);
 	
-	// Mark as visited
+
 	grid[y][x] = 'V';
 	
-	// Recursively check all 4 directions
+
 	if (flood_fill(grid, x + 1, y, width, height) ||
 		flood_fill(grid, x - 1, y, width, height) ||
 		flood_fill(grid, x, y + 1, width, height) ||
@@ -236,7 +236,7 @@ static int	validate_enclosure(t_map *map)
 	if (!grid_copy)
 		return (1);
 	
-	// Start flood fill from player position
+
 	result = flood_fill(grid_copy, map->player_x, map->player_y, 
 						map->width, map->height);
 	
@@ -249,25 +249,25 @@ int	check_map(t_map *map)
 	if (!map || !map->grid || map->height <= 0)
 		return (1);
 		
-	// Step 1: Validate characters
+
 	if (validate_characters(map) != 0)
 		return (1);
 		
-	// Step 2: Find and store player
+
 	if (find_and_store_player(map) != 0)
 		return (1);
 		
-	// Step 3: Normalize irregular map to rectangle
+
 	normalize_to_rectangle(map);
 	
-	// Step 4: Replace spaces with walls
+
 	replace_spaces_with_walls(map);
 	
-	// Step 5: Validate walls
+
 	if (validate_walls(map) != 0)
 		return (1);
 	
-	// Step 6: Flood fill validation
+
 	if (validate_enclosure(map) != 0)
 		return (1);
 	
