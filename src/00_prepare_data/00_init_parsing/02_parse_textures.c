@@ -1,52 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*   02_parse_textures.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/07 04:32:24 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/07 05:15:30 by fguryel          ###   ########.fr       */
+/*   Created: 2026/02/07 04:32:24 by rakman            #+#    #+#             */
+/*   Updated: 2026/02/13 22:04:59 by rakman           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "map.h"
-
-static int	parse_color_values(char *line, t_texture *tex)
-{
-	char	**split;
-	int		i;
-
-	if (tex->set)
-		return (TEX_ERR_DUPLICATE);
-	while (*line && (*line == ' ' || *line == '\t'))
-		line++;
-	split = ft_split(line, ',');
-	if (!split)
-		return (TEX_ERR_INVALID_COLOR);
-	i = 0;
-	while (split[i])
-		i++;
-	if (i != 3)
-	{
-		while (--i >= 0)
-			free(split[i]);
-		free(split);
-		return (TEX_ERR_INVALID_COLOR);
-	}
-	tex->r = ft_atoi(split[0]);
-	tex->g = ft_atoi(split[1]);
-	tex->b = ft_atoi(split[2]);
-	free(split[0]);
-	free(split[1]);
-	free(split[2]);
-	free(split);
-	if (tex->r < 0 || tex->r > 255 || tex->g < 0 || tex->g > 255
-		|| tex->b < 0 || tex->b > 255)
-		return (TEX_ERR_COLOR_RANGE);
-	tex->set = 1;
-	return (0);
-}
 
 static int	set_texture_path(char **dest, char *line, int offset)
 {
@@ -88,6 +52,18 @@ static int	process_line(char *line, t_map *map)
 	return (parse_color_values(line + 2, &map->ceil));
 }
 
+static int	validate_textures_complete(t_map *map, int err)
+{
+	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
+		|| !map->floor.set || !map->ceil.set)
+	{
+		if (!err)
+			print_texture_error(TEX_ERR_MISSING_ELEMENT);
+		return (1);
+	}
+	return (0);
+}
+
 int	parse_textures(const char *file_path, t_map *map)
 {
 	int		fd;
@@ -110,12 +86,7 @@ int	parse_textures(const char *file_path, t_map *map)
 	close(fd);
 	if (err)
 		print_texture_error(err);
-	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
-		|| !map->floor.set || !map->ceil.set)
-	{
-		if (!err)
-			print_texture_error(TEX_ERR_MISSING_ELEMENT);
+	if (validate_textures_complete(map, err))
 		return (1);
-	}
 	return (err != 0);
 }

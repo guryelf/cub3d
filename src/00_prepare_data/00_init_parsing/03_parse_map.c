@@ -1,40 +1,47 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                       :+:      :+:    :+:   */
+/*   03_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/08 18:25:00 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/08 18:25:00 by fguryel          ###   ########.fr       */
+/*   Created: 2026/02/13 22:01:22 by rakman            #+#    #+#             */
+/*   Updated: 2026/02/13 22:04:59 by rakman           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "map.h"
 #include <fcntl.h>
 
-static int	is_map_line(char *line)
+int	is_map_line(char *line)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	
-
 	if (!line[i] || line[i] == '\n')
 		return (0);
-		
-
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && 
-			line[i] != '\t' && line[i] != 'N' && line[i] != 'S' && 
-			line[i] != 'E' && line[i] != 'W')
+		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
+			&& line[i] != '\t' && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+static void	process_count_line(char *line, int *count, int *in_map, int *done)
+{
+	if (is_map_line(line))
+	{
+		*in_map = 1;
+		(*count)++;
+	}
+	else if (*in_map && *line != '\n')
+		*done = 1;
 }
 
 static int	count_map_lines(const char *file_path)
@@ -43,22 +50,18 @@ static int	count_map_lines(const char *file_path)
 	char	*line;
 	int		count;
 	int		in_map;
+	int		done;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	count = 0;
 	in_map = 0;
+	done = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (line && !done)
 	{
-		if (is_map_line(line))
-		{
-			in_map = 1;
-			count++;
-		}
-		else if (in_map && *line != '\n')
-			break ;
+		process_count_line(line, &count, &in_map, &done);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -66,67 +69,6 @@ static int	count_map_lines(const char *file_path)
 		free(line);
 	close(fd);
 	return (count);
-}
-
-static char	*parse_map_line(char *line)
-{
-	char	*result;
-	int		len;
-	int		i;
-
-	len = ft_strlen(line);
-	while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
-		len--;
-	result = ft_calloc(len + 1, sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		result[i] = line[i];
-		i++;
-	}
-	return (result);
-}
-
-static int	read_map_grid(const char *file_path, t_map *map)
-{
-	int		fd;
-	char	*line;
-	int		i;
-	int		in_map;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	i = 0;
-	in_map = 0;
-	line = get_next_line(fd);
-	while (line && i < map->height)
-	{
-		if (is_map_line(line))
-		{
-			in_map = 1;
-			map->grid[i] = parse_map_line(line);
-			if (!map->grid[i])
-			{
-				free(line);
-				close(fd);
-				return (1);
-			}
-			if ((int)ft_strlen(map->grid[i]) > map->width)
-				map->width = ft_strlen(map->grid[i]);
-			i++;
-		}
-		else if (in_map)
-			break ;
-		free(line);
-		line = get_next_line(fd);
-	}
-	if (line)
-		free(line);
-	close(fd);
-	return (0);
 }
 
 int	parse_map(const char *file_path, t_map *map)

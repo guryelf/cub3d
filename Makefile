@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/13 20:44:35 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/13 22:05:34 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,13 @@ SRC_EXIT = src/exit/clean_exit.c \
 SRC_PREPARE_DATA = src/00_prepare_data/00_init_parsing/00_init_parsing.c \
                    src/00_prepare_data/00_init_parsing/01_parse_file.c \
                    src/00_prepare_data/00_init_parsing/02_parse_textures.c \
+                   src/00_prepare_data/00_init_parsing/02a_parse_colors.c \
                    src/00_prepare_data/00_init_parsing/03_parse_map.c \
+                   src/00_prepare_data/00_init_parsing/03a_read_map_grid.c \
                    src/00_prepare_data/00_init_parsing/04_check_map.c \
-                   src/00_prepare_data/00_init_parsing/05_parser_utils.c \
+                   src/00_prepare_data/00_init_parsing/05_validate_walls.c \
+                   src/00_prepare_data/00_init_parsing/06_validate_enclosure.c \
+                   src/00_prepare_data/00_init_parsing/07_parser_utils.c \
                    src/00_prepare_data/01_init_mlx/00_init_mlx.c \
                    src/00_prepare_data/02_load_textures/00_load_textures.c \
                    src/00_prepare_data/03_init_data/00_init_data.c
