@@ -30,32 +30,6 @@ static int	check_extension(const char *path, int len)
 	return (ERR_CASE_SENSITIVE);
 }
 
-static int	validate_filename(const char *path)
-{
-	int			len;
-	const char	*basename;
-	int			i;
-
-	if (!path)
-		return (ERR_NULL_FILENAME);
-	if (!*path)
-		return (ERR_EMPTY_STRING);
-	len = ft_strlen(path);
-	if (len < 5)
-		return (ERR_TOO_SHORT);
-	if (path[len - 1] == ' ')
-		return (ERR_TRAILING_SPACE);
-	basename = path;
-	i = len - 1;
-	while (i >= 0 && path[i] != '/')
-		i--;
-	if (i >= 0)
-		basename = path + i + 1;
-	if (basename[0] == '.')
-		return (ERR_ONLY_EXTENSION);
-	return (check_extension(path, len));
-}
-
 static int	validate_file_access(const char *path)
 {
 	int	fd;
@@ -71,6 +45,30 @@ static int	validate_file_access(const char *path)
 		return (ERR_OPEN_FAILED);
 	close(fd);
 	return (0);
+}
+
+static int	validate_filename(const char *path)
+{
+	int			len;
+	const char	*basename;
+	int			i;
+
+	if (path == NULL)
+		return (ERR_NULL_FILENAME);
+	if (*path == '\0')
+		return (ERR_EMPTY_STRING);
+	len = ft_strlen(path);
+	if (len < 5)
+		return (ERR_TOO_SHORT);
+	basename = path;
+	i = len - 1;
+	while (i >= 0 && path[i] != '/')
+		i--;
+	if (i >= 0)
+		basename = path + i + 1;
+	if (basename[0] == '.')
+		return (ERR_ONLY_EXTENSION);
+	return (check_extension(path, len));
 }
 
 int	parse_file(const char *file_path)
