@@ -1,6 +1,31 @@
 #include "cub3d.h"
 #include <stdlib.h>
 
+static void	free_map_data(t_map *map)
+{
+	int	i;
+
+	if (map->no_path)
+		free(map->no_path);
+	if (map->so_path)
+		free(map->so_path);
+	if (map->we_path)
+		free(map->we_path);
+	if (map->ea_path)
+		free(map->ea_path);
+	if (map->grid)
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			if (map->grid[i])
+				free(map->grid[i]);
+			i++;
+		}
+		free(map->grid);
+	}
+}
+
 int	clean_exit(t_game *game)
 {
 	int	i;
@@ -21,6 +46,7 @@ int	clean_exit(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
+	free_map_data(&game->map);
 	exit(0);
 	return (0);
 }
