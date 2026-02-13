@@ -51,24 +51,23 @@ static int	validate_filename(const char *path)
 {
 	int			len;
 	const char	*basename;
-	int			i;
+	const char	*slash;
 
 	if (path == NULL)
 		return (ERR_NULL_FILENAME);
 	if (*path == '\0')
 		return (ERR_EMPTY_STRING);
-	len = ft_strlen(path);
+	slash = ft_strrchr(path, '/');
+	if (slash)
+		basename = slash + 1;
+	else
+		basename = path;
+	len = ft_strlen(basename);
 	if (len < 5)
 		return (ERR_TOO_SHORT);
-	basename = path;
-	i = len - 1;
-	while (i >= 0 && path[i] != '/')
-		i--;
-	if (i >= 0)
-		basename = path + i + 1;
 	if (basename[0] == '.')
 		return (ERR_ONLY_EXTENSION);
-	return (check_extension(path, len));
+	return (check_extension(basename, len));
 }
 
 int	parse_file(const char *file_path)
