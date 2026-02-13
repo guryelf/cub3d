@@ -4,21 +4,34 @@
 #include <unistd.h>
 #include "vector2.h"
 
+typedef struct s_map	t_map;
+typedef struct s_player	t_player;
 
 typedef struct s_ray
 {
-	t_vec2	camera_vec;
-	t_vec2	ray_dir_vec;
-	t_vec2	map_vec;
-	t_vec2	side_dist_vec;
-	t_vec2	delta_dist_vec;
-	t_vec2	step_vec;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
 	double	perp_wall_dist;
 	int		hit;
 	int		side;
 	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_num;
 }			t_ray;
 
-
+void	setup_ray(t_ray *ray, t_player *player, int x);
+void	perform_dda(t_ray *ray, t_map *map, t_player *player);
+void	calculate_wall(t_ray *ray, t_player *player);
 
 #endif
