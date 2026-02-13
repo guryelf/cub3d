@@ -1,1 +1,0 @@
-//Oyuncunun koordinatlarını güncelleme

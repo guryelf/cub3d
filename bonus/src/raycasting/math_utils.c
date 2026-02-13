@@ -1,1 +1,0 @@
-// Açı hesapları ve normalizasyon
