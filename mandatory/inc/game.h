@@ -38,5 +38,12 @@ int     create_rgb(int r, int g, int b);
 void    draw_background(t_game *game, int x, t_ray *ray);
 void    draw_textured_wall(t_game *game, int x, t_ray *ray);
 int     clean_exit(t_game *game);
+int     handle_keypress(int keycode, t_game *game);
+void    move_forward(t_game *game);
+void    move_backward(t_game *game);
+void    move_left(t_game *game);
+void    move_right(t_game *game);
+void    rotate_left(t_game *game);
+void    rotate_right(t_game *game);
 
 #endif

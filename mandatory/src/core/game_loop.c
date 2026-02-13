@@ -12,13 +12,6 @@ int	handle_close(t_game *game)
 	return (0);
 }
 
-int	handle_keypress(int keycode, t_game *game)
-{
-	if (keycode == 65307)
-		clean_exit(game);
-	return (0);
-}
-
 void	start_game(t_game *game)
 {
 	mlx_loop_hook(game->mlx, game_loop, game);
