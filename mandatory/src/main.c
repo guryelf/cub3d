@@ -38,6 +38,7 @@ int	main(int argc, char *argv[])
 		write(2, "Error\nData initialization failed\n", 34);
 		return (1);
 	}
-	write(1, "Phase 1 Complete: MLX, Textures, Player initialized!\n", 54);
+	write(1, "Phase 4: Starting game loop...\n", 32);
+	start_game(&game);
 	return (0);
 }

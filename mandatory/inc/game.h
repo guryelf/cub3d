@@ -37,5 +37,6 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int     create_rgb(int r, int g, int b);
 void    draw_background(t_game *game, int x, t_ray *ray);
 void    draw_textured_wall(t_game *game, int x, t_ray *ray);
+int     clean_exit(t_game *game);
 
 #endif
