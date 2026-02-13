@@ -35,6 +35,10 @@ char			*parse_map_line(char *line);
 int				process_grid_line(char *line, t_map *map, int *i, int *in_map);
 int				read_map_grid(const char *file_path, t_map *map);
 int				check_map(t_map *map);
+void			normalize_to_rectangle(t_map *map);
+void			replace_spaces_with_walls(t_map *map);
+int				validate_walls(t_map *map);
+int				validate_enclosure(t_map *map);
 int				init_parsing(const char *file_path, t_map *map);
 void			free_map_data(t_map *map);
 
