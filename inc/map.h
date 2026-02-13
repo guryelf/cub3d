@@ -39,7 +39,8 @@ void			normalize_to_rectangle(t_map *map);
 void			replace_spaces_with_walls(t_map *map);
 int				validate_walls(t_map *map);
 int				validate_enclosure(t_map *map);
-int				init_parsing(const char *file_path, t_map *map);
+int				validate_mapfile(const char *file_path);
+int				parse_mapfile(const char *file_path, t_map *map);
 void			free_map_data(t_map *map);
 
 #endif

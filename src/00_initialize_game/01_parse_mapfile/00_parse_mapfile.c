@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_init_parsing.c                                  :+:      :+:    :+:   */
+/*   00_parse_mapfile.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 00:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:01:48 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 00:50:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,9 @@ static void	init_map(t_map *map)
 	map->player_dir = 0;
 }
 
-int	init_parsing(const char *file_path, t_map *map)
+int	parse_mapfile(const char *file_path, t_map *map)
 {
 	init_map(map);
-	if (parse_file(file_path) != 0)
-	{
-		write(2, "Error: File parsing failed\n", 27);
-		return (1);
-	}
 	if (parse_textures(file_path, map) != 0)
 	{
 		write(2, "Error: Texture parsing failed\n", 30);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_parse_file.c                                   :+:      :+:    :+:   */
+/*   00_validate_mapfile.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:24 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:01:48 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 00:40:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	validate_filename(const char *path)
 	return (check_extension(basename, len));
 }
 
-int	parse_file(const char *file_path)
+int	validate_mapfile(const char *file_path)
 {
 	int	error;
 

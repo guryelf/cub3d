@@ -28,6 +28,7 @@ typedef struct s_game
     t_img       textures[4];
 }   t_game;
 
+int     init_game_resources(t_game *game);
 int     init_mlx(t_game *game);
 int     init_data(t_game *game);
 int     load_textures(t_game *game);
