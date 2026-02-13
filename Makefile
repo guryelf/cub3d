@@ -1,14 +1,14 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+         #
+#    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/07 05:18:53 by fguryel          ###   ########.fr        #
+#    Updated: 2026/02/13 20:44:35 by rakman           ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME = cub3D
 
@@ -32,23 +32,22 @@ SRC_EVENTS = src/events/key_handler.c \
 SRC_EXIT = src/exit/clean_exit.c \
            src/exit/error.c
 
-SRC_INIT = src/init/init_data.c \
-           src/init/init_mlx.c \
-           src/init/init_parsing.c
-
-SRC_PARSING = src/parsing/check_map.c \
-              src/parsing/parse_file.c \
-              src/parsing/parse_map.c \
-              src/parsing/parse_textures.c \
-              src/parsing/parser_utils.c
+SRC_PREPARE_DATA = src/00_prepare_data/00_init_parsing/00_init_parsing.c \
+                   src/00_prepare_data/00_init_parsing/01_parse_file.c \
+                   src/00_prepare_data/00_init_parsing/02_parse_textures.c \
+                   src/00_prepare_data/00_init_parsing/03_parse_map.c \
+                   src/00_prepare_data/00_init_parsing/04_check_map.c \
+                   src/00_prepare_data/00_init_parsing/05_parser_utils.c \
+                   src/00_prepare_data/01_init_mlx/00_init_mlx.c \
+                   src/00_prepare_data/02_load_textures/00_load_textures.c \
+                   src/00_prepare_data/03_init_data/00_init_data.c
 
 SRC_RAYCASTING = src/raycasting/dda.c \
                  src/raycasting/math_utils.c \
                  src/raycasting/raycaster.c
 
 SRC_RENDER = src/render/draw_walls.c \
-             src/render/render_frame.c \
-             src/render/textures.c
+             src/render/render_frame.c
 
 SRC_LIBFT = lib/libft/ft_atoi.c \
             lib/libft/ft_bzero.c \
@@ -97,8 +96,8 @@ SRC_LIBFT = lib/libft/ft_atoi.c \
 SRC_GNL = lib/get_next_line/get_next_line.c \
           lib/get_next_line/get_next_line_utils.c
 
-SRCS = $(SRC_MAIN) $(SRC_CORE) $(SRC_EVENTS) $(SRC_EXIT) $(SRC_INIT) \
-       $(SRC_PARSING) $(SRC_RAYCASTING) $(SRC_RENDER) $(SRC_LIBFT) $(SRC_GNL)
+SRCS = $(SRC_MAIN) $(SRC_CORE) $(SRC_EVENTS) $(SRC_EXIT) \
+       $(SRC_PREPARE_DATA) $(SRC_RAYCASTING) $(SRC_RENDER) $(SRC_LIBFT) $(SRC_GNL)
 
 OBJS = $(SRCS:.c=.o)
 
