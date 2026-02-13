@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rakman <rakman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:12 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/08 18:44:13 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/13 20:32:02 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../../inc/cub3d.h"
 
 static void	init_map(t_map *map)
 {
@@ -57,6 +57,23 @@ int	init_parsing(const char *file_path, t_map *map)
 		write(2, "Error: Map validation failed\n", 29);
 		return (1);
 	}
-	// Player parsing is now handled in check_map
+	return (0);
+}
+
+int	init_mlx(t_game *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		return (1);
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
+	if (!game->win)
+		return (1);
+	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->img.img)
+		return (1);
+	game->img.addr = (int *)mlx_get_data_addr(game->img.img,
+			&game->img.bpp, &game->img.line_len, &game->img.endian);
+	if (!game->img.addr)
+		return (1);
 	return (0);
 }
