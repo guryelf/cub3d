@@ -23,14 +23,14 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 # Source files
 SRC_MAIN = src/main.c
 
-SRC_CORE = src/core/game_loop.c \
-           src/core/utils.c
+SRC_CORE = src/01_core/00_game_loop.c \
+           src/01_core/01_utils.c
 
-SRC_EVENTS = src/events/key_handler.c \
-             src/events/move_player.c
+SRC_EVENTS = src/04_events/00_key_handler.c \
+             src/04_events/01_move_player.c
 
-SRC_EXIT = src/exit/clean_exit.c \
-           src/exit/error.c
+SRC_EXIT = src/05_exit/00_clean_exit.c \
+           src/05_exit/01_error.c
 
 SRC_PREPARE_DATA = src/00_prepare_data/00_init_parsing/00_init_parsing.c \
                    src/00_prepare_data/00_init_parsing/01_parse_file/00_parse_file.c \
@@ -46,12 +46,12 @@ SRC_PREPARE_DATA = src/00_prepare_data/00_init_parsing/00_init_parsing.c \
                    src/00_prepare_data/02_load_textures/00_load_textures.c \
                    src/00_prepare_data/03_init_data/00_init_data.c
 
-SRC_RAYCASTING = src/raycasting/dda.c \
-                 src/raycasting/math_utils.c \
-                 src/raycasting/raycaster.c
+SRC_RAYCASTING = src/02_raycasting/00_dda.c \
+                 src/02_raycasting/01_math_utils.c \
+                 src/02_raycasting/02_raycaster.c
 
-SRC_RENDER = src/render/draw_walls.c \
-             src/render/render_frame.c
+SRC_RENDER = src/03_render/00_render_frame.c \
+             src/03_render/01_draw_walls.c
 
 SRC_LIBFT = lib/libft/ft_atoi.c \
             lib/libft/ft_bzero.c \
