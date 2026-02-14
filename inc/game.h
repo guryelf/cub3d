@@ -14,8 +14,8 @@
 #define TEX_WIDTH 64
 #define TEX_HEIGHT 64
 
-#define MOVE_SPEED 0.05
-#define ROT_SPEED 0.03
+#define MOVE_SPEED 0.13
+#define ROT_SPEED 0.08
 
 typedef struct s_game
 {
@@ -30,7 +30,7 @@ typedef struct s_game
 
 int     init_game_resources(t_game *game);
 int     init_mlx(t_game *game);
-int     set_player_position(t_game *game);
+int     init_data(t_game *game);
 int     load_textures(t_game *game);
 void    start_game(t_game *game);
 int     render_frame(t_game *game);

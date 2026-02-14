@@ -46,7 +46,7 @@ SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_map
                       src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
                       src/00_initialize_game/02_init_game_resources/01_init_mlx.c \
                       src/00_initialize_game/02_init_game_resources/02_load_textures.c \
-                      src/00_initialize_game/02_init_game_resources/03_set_player_position.c
+                      src/00_initialize_game/02_init_game_resources/03_init_data.c
 
 SRC_RAYCASTING = src/02_raycasting/00_dda.c \
                  src/02_raycasting/01_math_utils.c \
