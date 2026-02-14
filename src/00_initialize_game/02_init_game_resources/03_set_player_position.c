@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_init_data.c                                     :+:      :+:    :+:   */
+/*   03_set_player_position.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 00:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:04:29 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 18:05:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	set_direction_west(t_player *player)
 	player->plane_vec.y = -0.66;
 }
 
-int	init_data(t_game *game)
+int	set_player_position(t_game *game)
 {
 	game->player.pos_vec.x = (double)game->map.player_x + 0.5;
 	game->player.pos_vec.y = (double)game->map.player_y + 0.5;

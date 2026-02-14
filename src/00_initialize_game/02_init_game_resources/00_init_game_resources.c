@@ -24,7 +24,7 @@ int	init_game_resources(t_game *game)
 		write(2, "Error\nTexture loading failed\n", 30);
 		return (1);
 	}
-	if (init_data(game) != 0)
+	if (set_player_position(game) != 0)
 	{
 		write(2, "Error\nData initialization failed\n", 34);
 		return (1);
