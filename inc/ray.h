@@ -1,8 +1,20 @@
-#ifndef RAY_H
-#define RAY_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 19:08:33 by rakman            #+#    #+#             */
+/*   Updated: 2026/02/14 19:08:39 by rakman           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <unistd.h>
-#include "vector2.h"
+#ifndef RAY_H
+# define RAY_H
+
+# include <unistd.h>
+# include "vector2.h"
 
 typedef struct s_map	t_map;
 typedef struct s_player	t_player;
