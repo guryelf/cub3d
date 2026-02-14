@@ -18,6 +18,8 @@ static int	flood_fill(char **grid, t_map *map, int x, int y)
 		return (1);
 	if (grid[y][x] == '1' || grid[y][x] == 'V')
 		return (0);
+	if (grid[y][x] == ' ')
+		return (1);
 	grid[y][x] = 'V';
 	if (flood_fill(grid, map, x + 1, y)
 		|| flood_fill(grid, map, x - 1, y)

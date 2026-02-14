@@ -51,13 +51,13 @@ static char	*extend_and_fill_line(char *old_line, int target_width)
 	}
 	while (j < target_width)
 	{
-		new_line[j] = '1';
+		new_line[j] = ' ';
 		j++;
 	}
 	return (new_line);
 }
 
-void	normalize_and_fill_walls(t_map *map)
+void	normalize_map_grid(t_map *map)
 {
 	int		i;
 	char	*new_line;

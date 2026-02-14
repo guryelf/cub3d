@@ -25,15 +25,16 @@ int	validate_walls(t_map *map)
 			x = 0;
 			while (x < map->width)
 			{
-				if (map->grid[y][x] == '0')
+				if (map->grid[y][x] == '0' || map->grid[y][x] == ' ')
 					return (1);
 				x++;
 			}
 		}
 		else
 		{
-			if (map->grid[y][0] == '0'
-				|| map->grid[y][map->width - 1] == '0')
+			if (map->grid[y][0] == '0' || map->grid[y][0] == ' '
+				|| map->grid[y][map->width - 1] == '0'
+				|| map->grid[y][map->width - 1] == ' ')
 				return (1);
 		}
 		y++;
