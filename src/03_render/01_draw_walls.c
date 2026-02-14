@@ -12,6 +12,22 @@
 
 #include "../../inc/cub3d.h"
 
+static int	get_tex_x(t_ray *ray)
+{
+	int	tex_x;
+
+	tex_x = (int)(ray->wall_x * TEX_WIDTH);
+	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1
+			&& ray->ray_dir_y < 0))
+		tex_x = TEX_WIDTH - tex_x - 1;
+	return (tex_x);
+}
+
+static int	get_tex_y(double tex_pos)
+{
+	return ((int)tex_pos & (TEX_HEIGHT - 1));
+}
+
 void	draw_background(t_game *game, int x, t_ray *ray)
 {
 	int	y;
@@ -39,25 +55,19 @@ void	draw_background(t_game *game, int x, t_ray *ray)
 void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 {
 	int		y;
-	int		tex_x;
-	int		tex_y;
 	double	step;
 	double	tex_pos;
 	int		color;
 
-	tex_x = (int)(ray->wall_x * TEX_WIDTH);
-	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1
-			&& ray->ray_dir_y < 0))
-		tex_x = TEX_WIDTH - tex_x - 1;
 	step = 1.0 * TEX_HEIGHT / ray->line_height;
 	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
-		tex_pos += step;
-		color = game->textures[ray->tex_num].addr[TEX_HEIGHT * tex_y + tex_x];
+		color = game->textures[ray->tex_num].addr[TEX_HEIGHT
+			* get_tex_y(tex_pos) + get_tex_x(ray)];
 		my_mlx_pixel_put(&game->img, x, y, color);
+		tex_pos += step;
 		y++;
 	}
 }
