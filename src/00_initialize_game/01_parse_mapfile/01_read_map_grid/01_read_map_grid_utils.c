@@ -13,26 +13,6 @@
 #include "map.h"
 #include <fcntl.h>
 
-int	is_map_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-		i++;
-	if (!line[i] || line[i] == '\n')
-		return (0);
-	while (line[i] && line[i] != '\n')
-	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
-			&& line[i] != '\t' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 char	*parse_map_line(char *line)
 {
 	char	*result;
@@ -54,24 +34,16 @@ char	*parse_map_line(char *line)
 	return (result);
 }
 
-int	process_grid_line(char *line, t_map *map, int *i, int *in_map)
+static int	process_single_map_line(char *line, t_map *map, int i)
 {
 	int	len;
 
-	if (is_map_line(line))
-	{
-		*in_map = 1;
-		map->grid[*i] = parse_map_line(line);
-		if (!map->grid[*i])
-			return (1);
-		len = ft_strlen(map->grid[*i]);
-		if (len > map->width)
-			map->width = len;
-		(*i)++;
-		return (0);
-	}
-	if (*in_map)
-		return (2);
+	map->grid[i] = parse_map_line(line);
+	if (!map->grid[i])
+		return (1);
+	len = ft_strlen(map->grid[i]);
+	if (len > map->width)
+		map->width = len;
 	return (0);
 }
 
@@ -79,22 +51,22 @@ int	process_lines_loop(int fd, t_map *map)
 {
 	char	*line;
 	int		i;
-	int		in_map;
-	int		ret;
 
 	i = 0;
-	in_map = 0;
 	line = get_next_line(fd);
-	while (line && i < map->height)
+	while (line)
 	{
-		ret = process_grid_line(line, map, &i, &in_map);
-		if (ret == 1)
+		if (is_empty_line(line))
+		{
+			free(line);
+			break ;
+		}
+		if (process_single_map_line(line, map, i) != 0)
 		{
 			free(line);
 			return (1);
 		}
-		if (ret == 2)
-			break ;
+		i++;
 		free(line);
 		line = get_next_line(fd);
 	}

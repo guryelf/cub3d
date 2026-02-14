@@ -1,4 +1,4 @@
-# 00_validate_mapfile
+git # 00_validate_mapfile
 
 ## Purpose
 Validates the `.cub` map file path and ensures it can be opened for reading before parsing.
