@@ -62,10 +62,7 @@ int	process_lines_loop(int fd, t_map *map)
 			break ;
 		}
 		if (process_single_map_line(line, map, i) != 0)
-		{
-			free(line);
-			return (1);
-		}
+			return (free(line), 1);
 		i++;
 		free(line);
 		line = get_next_line(fd);
