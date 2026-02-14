@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 00:55:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 00:55:09 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 19:02:23 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_game_resources(t_game *game)
 		write(2, "Error\nTexture loading failed\n", 30);
 		return (1);
 	}
-	if (init_data(game) != 0)
+	if (set_player_position(game) != 0)
 	{
 		write(2, "Error\nData initialization failed\n", 34);
 		return (1);

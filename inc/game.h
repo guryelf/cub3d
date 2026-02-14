@@ -46,5 +46,6 @@ void    move_left(t_game *game);
 void    move_right(t_game *game);
 void    rotate_left(t_game *game);
 void    rotate_right(t_game *game);
+int	    set_player_position(t_game *game);
 
 #endif
