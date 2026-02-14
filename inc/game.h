@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:16 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 19:08:39 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 00:59:59 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ typedef struct s_game
 }				t_game;
 
 int			init_game_resources(t_game *game);
-int			init_mlx(t_game *game);
-int			init_data(t_game *game);
 int			load_textures(t_game *game);
 void		start_game(t_game *game);
 int			render_frame(t_game *game);

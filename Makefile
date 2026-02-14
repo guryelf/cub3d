@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/15 00:12:51 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/15 01:00:00 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,8 @@ SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_map
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_texture_path.c \
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parse_color.c \
                       src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
-                      src/00_initialize_game/02_init_game_resources/01_init_mlx.c \
-                      src/00_initialize_game/02_init_game_resources/02_load_textures.c \
-                      src/00_initialize_game/02_init_game_resources/03_set_player_position.c
+                      src/00_initialize_game/02_init_game_resources/01_load_textures.c \
+                      src/00_initialize_game/02_init_game_resources/02_set_player_position.c
 
 SRC_RAYCASTING = src/02_raycasting/00_dda.c \
                  src/02_raycasting/01_math_utils.c \
