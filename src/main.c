@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:15 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/14 19:39:57 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 01:23:15 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char *argv[])
 	ft_bzero(&game, sizeof(t_game));
 	if (initialize_game(&game, argv[1]) != 0)
 		return (1);
-	write(1, "Phase 4: Starting game loop...\n", 32);
 	start_game(&game);
 	return (0);
 }
