@@ -62,9 +62,6 @@ static int	validate_filename(const char *path)
 		basename = slash + 1;
 	else
 		basename = path;
-	len = ft_strlen(basename);
-	if (len < 5)
-		return (ERR_TOO_SHORT);
 	if (basename[0] == '.')
 		return (ERR_ONLY_EXTENSION);
 	return (check_extension(basename, len));
