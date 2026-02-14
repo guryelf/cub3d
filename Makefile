@@ -38,8 +38,7 @@ SRC_PREPARE_DATA = src/00_initialize_game/00_validate_mapfile/00_validate_mapfil
                    src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \
                    src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
                    src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
-                   src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_walls.c \
-                   src/00_initialize_game/01_parse_mapfile/02_validate_map/03_validate_enclosure.c \
+                   src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_colors.c \
                    src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parser_utils.c \

@@ -79,8 +79,6 @@ int	validate_map(t_map *map)
 	if (find_and_store_player(map) != 0)
 		return (1);
 	normalize_map_grid(map);
-	if (validate_walls(map) != 0)
-		return (1);
 	if (validate_enclosure(map) != 0)
 		return (1);
 	return (0);

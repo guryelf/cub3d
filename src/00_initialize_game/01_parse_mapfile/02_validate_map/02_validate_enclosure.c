@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_validate_enclosure.c                           :+:      :+:    :+:   */
+/*   02_validate_enclosure.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 21:40:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 12:00:00 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 12:30:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+
+static void	free_grid_copy(char **grid, int height)
+{
+	int	i;
+
+	if (!grid)
+		return ;
+	i = 0;
+	while (i < height)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
+}
 
 static int	flood_fill(char **grid, t_map *map, int x, int y)
 {
@@ -51,21 +66,6 @@ static char	**copy_grid(t_map *map)
 		i++;
 	}
 	return (copy);
-}
-
-static void	free_grid_copy(char **grid, int height)
-{
-	int	i;
-
-	if (!grid)
-		return ;
-	i = 0;
-	while (i < height)
-	{
-		free(grid[i]);
-		i++;
-	}
-	free(grid);
 }
 
 int	validate_enclosure(t_map *map)
