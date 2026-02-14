@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 04:32:15 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/14 00:55:09 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 19:39:57 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char *argv[])
 		write(2, "Error\nUsage: ./cub3D <map.cub>\n", 32);
 		return (1);
 	}
+	ft_bzero(&game, sizeof(t_game));
 	if (initialize_game(&game, argv[1]) != 0)
 		return (1);
 	write(1, "Phase 4: Starting game loop...\n", 32);
