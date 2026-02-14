@@ -56,12 +56,6 @@ int	process_lines_loop(int fd, t_map *map, char *first_line)
 	line = first_line;
 	while (line)
 	{
-		if (is_empty_line(line))
-		{
-			free(line);
-			line = NULL;
-			break ;
-		}
 		if (process_single_map_line(line, map, i) != 0)
 			return (free(line), 1);
 		i++;
