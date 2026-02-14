@@ -43,15 +43,12 @@ static char	*extend_and_fill_line(char *old_line, int target_width)
 	j = 0;
 	while (j < cur_len)
 	{
-		if (old_line[j] == ' ')
-			new_line[j] = '1';
-		else
-			new_line[j] = old_line[j];
+		new_line[j] = old_line[j];
 		j++;
 	}
 	while (j < target_width)
 	{
-		new_line[j] = '1';
+		new_line[j] = ' ';
 		j++;
 	}
 	return (new_line);
