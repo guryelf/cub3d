@@ -72,5 +72,7 @@ int	validate_mapfile(const char *file_path)
 		print_file_parsing_error(error);
 		return (1);
 	}
+	if (dispatch_sneaky_files(file_path) != 0)
+		return (1);
 	return (0);
 }
