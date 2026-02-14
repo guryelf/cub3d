@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_parser_utils.c                                 :+:      :+:    :+:   */
+/*   02_parse_texture_path.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/07 04:32:24 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:07:43 by rakman           ###   ########.fr       */
+/*   Created: 2026/02/14 17:40:00 by rakman            #+#    #+#             */
+/*   Updated: 2026/02/14 17:40:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,22 @@ int	validate_texture_file(const char *path)
 	return (0);
 }
 
-int	get_texture_type(char *line)
+int	set_texture_path(char **dest, char *line, int offset)
 {
-	while (*line && (*line == ' ' || *line == '\t'))
-		line++;
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (1);
-	if (ft_strncmp(line, "SO ", 3) == 0)
-		return (2);
-	if (ft_strncmp(line, "WE ", 3) == 0)
-		return (3);
-	if (ft_strncmp(line, "EA ", 3) == 0)
-		return (4);
-	if (ft_strncmp(line, "F ", 2) == 0)
-		return (5);
-	if (ft_strncmp(line, "C ", 2) == 0)
-		return (6);
+	char	*path;
+	int		err;
+
+	if (*dest)
+		return (TEX_ERR_DUPLICATE);
+	path = extract_path(line + offset);
+	if (!path)
+		return (TEX_ERR_MISSING_PATH);
+	err = validate_texture_file(path);
+	if (err)
+	{
+		free(path);
+		return (err);
+	}
+	*dest = path;
 	return (0);
 }

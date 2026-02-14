@@ -28,6 +28,8 @@ int				validate_texture_file(const char *path);
 int				get_texture_type(char *line);
 int				parse_file(const char *file_path);
 int				parse_textures(const char *file_path, t_map *map);
+int				process_line(char *line, t_map *map);
+int				set_texture_path(char **dest, char *line, int offset);
 int				parse_color_values(char *line, t_texture *tex);
 int				read_map_grid(const char *file_path, t_map *map);
 int				is_empty_line(char *line);

@@ -41,8 +41,8 @@ SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_map
                       src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
                       src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
-                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_colors.c \
-                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parser_utils.c \
+                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_process_line.c \
+                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parse_texture_path.c \
                       src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
                       src/00_initialize_game/02_init_game_resources/01_init_mlx.c \
                       src/00_initialize_game/02_init_game_resources/02_load_textures.c \
