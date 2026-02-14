@@ -50,4 +50,3 @@ int	process_line(char *line, t_map *map)
 		return (parse_color_values(line + 2, &map->floor));
 	return (parse_color_values(line + 2, &map->ceil));
 }
-
