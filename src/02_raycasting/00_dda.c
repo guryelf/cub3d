@@ -1,25 +1,23 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
+/*   00_key_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fguryel <fguryel@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: fguryel <fguryel@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/13 00:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 19:42:36 by fguryel          ###   ########.fr       */
+/*   Created: 2026-02-14 14:14:54 by fguryel           #+#    #+#             */
+/*   Updated: 2026-02-14 14:14:54 by fguryel          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-#include <math.h>
 
 static void	calculate_step_and_side_dist(t_ray *ray, t_player *player)
 {
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dist_x = (player->pos_vec.x - ray->map_x)
-			* ray->delta_dist_x;
+		ray->side_dist_x = (player->pos_vec.x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
@@ -30,8 +28,7 @@ static void	calculate_step_and_side_dist(t_ray *ray, t_player *player)
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dist_y = (player->pos_vec.y - ray->map_y)
-			* ray->delta_dist_y;
+		ray->side_dist_y = (player->pos_vec.y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{

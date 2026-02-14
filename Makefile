@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/14 01:04:17 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/13 22:14:57 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,25 +27,27 @@ SRC_CORE = src/01_core/00_game_loop.c \
            src/01_core/01_utils.c
 
 SRC_EVENTS = src/04_events/00_key_handler.c \
-             src/04_events/01_move_player.c
+             src/04_events/01_move_player.c \
+             src/04_events/02_rotate_player.c
 
 SRC_EXIT = src/05_exit/00_clean_exit.c \
            src/05_exit/01_error.c
 
-SRC_PREPARE_DATA = src/00_initialize_game/00_validate_mapfile/00_validate_mapfile.c \
-                   src/00_initialize_game/01_parse_mapfile/00_parse_mapfile.c \
-                   src/00_initialize_game/01_parse_mapfile/01_read_map_grid/00_read_map_grid.c \
-                   src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \
-                   src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
-                   src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
-                   src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
-                   src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
-                   src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_colors.c \
-                   src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parser_utils.c \
-                   src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
-                   src/00_initialize_game/02_init_game_resources/01_init_mlx.c \
-                   src/00_initialize_game/02_init_game_resources/02_load_textures.c \
-                   src/00_initialize_game/02_init_game_resources/03_init_data.c
+SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_mapfile.c \
+                      src/00_initialize_game/01_parse_mapfile/00_parse_mapfile.c \
+                      src/00_initialize_game/01_parse_mapfile/01_read_map_grid/00_read_map_grid.c \
+                      src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \
+                      src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
+                      src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
+                      src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_walls.c \
+                      src/00_initialize_game/01_parse_mapfile/02_validate_map/03_validate_enclosure.c \
+                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
+                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_colors.c \
+                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parser_utils.c \
+                      src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
+                      src/00_initialize_game/02_init_game_resources/01_init_mlx.c \
+                      src/00_initialize_game/02_init_game_resources/02_load_textures.c \
+                      src/00_initialize_game/02_init_game_resources/03_init_data.c
 
 SRC_RAYCASTING = src/02_raycasting/00_dda.c \
                  src/02_raycasting/01_math_utils.c \
@@ -102,7 +104,7 @@ SRC_GNL = lib/get_next_line/get_next_line.c \
           lib/get_next_line/get_next_line_utils.c
 
 SRCS = $(SRC_MAIN) $(SRC_CORE) $(SRC_EVENTS) $(SRC_EXIT) \
-       $(SRC_PREPARE_DATA) $(SRC_RAYCASTING) $(SRC_RENDER) $(SRC_LIBFT) $(SRC_GNL)
+       $(SRC_INITIALIZE_GAME) $(SRC_RAYCASTING) $(SRC_RENDER) $(SRC_LIBFT) $(SRC_GNL)
 
 OBJS = $(SRCS:.c=.o)
 

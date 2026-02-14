@@ -51,7 +51,7 @@ static char	*extend_and_fill_line(char *old_line, int target_width)
 	}
 	while (j < target_width)
 	{
-		new_line[j] = ' ';
+		new_line[j] = '1';
 		j++;
 	}
 	return (new_line);

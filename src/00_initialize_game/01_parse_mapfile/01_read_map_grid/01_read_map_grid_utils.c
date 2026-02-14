@@ -47,13 +47,13 @@ static int	process_single_map_line(char *line, t_map *map, int i)
 	return (0);
 }
 
-int	process_lines_loop(int fd, t_map *map)
+int	process_lines_loop(int fd, t_map *map, char *first_line)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	line = get_next_line(fd);
+	line = first_line;
 	while (line)
 	{
 		if (is_empty_line(line))

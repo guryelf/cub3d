@@ -47,7 +47,7 @@ int	is_texture_or_color_line(char *line)
 	return (0);
 }
 
-static void	skip_to_map_section(int fd)
+static char	*skip_to_map_section(int fd)
 {
 	char	*line;
 
@@ -60,9 +60,9 @@ static void	skip_to_map_section(int fd)
 			line = get_next_line(fd);
 			continue ;
 		}
-		free(line);
-		break ;
+		return (line);
 	}
+	return (NULL);
 }
 
 static int	calculate_map_height(const char *file_path)
@@ -74,9 +74,8 @@ static int	calculate_map_height(const char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	skip_to_map_section(fd);
+	line = skip_to_map_section(fd);
 	count = 0;
-	line = get_next_line(fd);
 	while (line)
 	{
 		if (is_empty_line(line))
@@ -96,6 +95,7 @@ int	read_map_grid(const char *file_path, t_map *map)
 {
 	int		fd;
 	int		ret;
+	char	*first_line;
 
 	map->height = calculate_map_height(file_path);
 	if (map->height <= 0)
@@ -107,8 +107,8 @@ int	read_map_grid(const char *file_path, t_map *map)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	skip_to_map_section(fd);
-	ret = process_lines_loop(fd, map);
+	first_line = skip_to_map_section(fd);
+	ret = process_lines_loop(fd, map, first_line);
 	close(fd);
 	return (ret);
 }

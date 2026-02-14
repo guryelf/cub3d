@@ -33,7 +33,7 @@ int				read_map_grid(const char *file_path, t_map *map);
 int				is_empty_line(char *line);
 int				is_texture_or_color_line(char *line);
 char			*parse_map_line(char *line);
-int				process_lines_loop(int fd, t_map *map);
+int			process_lines_loop(int fd, t_map *map, char *first_line);
 int				validate_map(t_map *map);
 void			normalize_map_grid(t_map *map);
 int				validate_enclosure(t_map *map);
