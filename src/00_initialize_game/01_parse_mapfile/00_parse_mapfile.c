@@ -37,11 +37,6 @@ static void	init_map(t_map *map)
 int	parse_mapfile(const char *file_path, t_map *map)
 {
 	init_map(map);
-	if (parse_textures(file_path, map) != 0)
-	{
-		write(2, "Error: Texture parsing failed\n", 30);
-		return (1);
-	}
 	if (read_map_grid(file_path, map) != 0)
 	{
 		write(2, "Error: Map reading failed\n", 27);
@@ -50,6 +45,11 @@ int	parse_mapfile(const char *file_path, t_map *map)
 	if (validate_map(map) != 0)
 	{
 		write(2, "Error: Map validation failed\n", 29);
+		return (1);
+	}
+	if (parse_textures(file_path, map) != 0)
+	{
+		write(2, "Error: Texture parsing failed\n", 30);
 		return (1);
 	}
 	return (0);
