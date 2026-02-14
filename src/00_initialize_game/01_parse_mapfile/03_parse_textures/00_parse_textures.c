@@ -12,6 +12,25 @@
 
 #include "map.h"
 
+static int	process_line(char *line, t_map *map)
+{
+	while (*line && *line == ' ')
+		line++;
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		return (set_texture_path(&map->no_path, line, 3));
+	if (ft_strncmp(line, "SO ", 3) == 0)
+		return (set_texture_path(&map->so_path, line, 3));
+	if (ft_strncmp(line, "WE ", 3) == 0)
+		return (set_texture_path(&map->we_path, line, 3));
+	if (ft_strncmp(line, "EA ", 3) == 0)
+		return (set_texture_path(&map->ea_path, line, 3));
+	if (ft_strncmp(line, "F ", 2) == 0)
+		return (parse_color_values(line + 2, &map->floor));
+	if (ft_strncmp(line, "C ", 2) == 0)
+		return (parse_color_values(line + 2, &map->ceil));
+	return (0);
+}
+
 static int	validate_textures_complete(t_map *map, int err)
 {
 	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path

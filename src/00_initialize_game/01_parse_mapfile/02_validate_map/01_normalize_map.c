@@ -33,23 +33,23 @@ static int	get_max_width(t_map *map)
 static char	*extend_and_fill_line(char *old_line, int target_width)
 {
 	char	*new_line;
-	int		j;
+	int		i;
 	int		cur_len;
 
 	cur_len = ft_strlen(old_line);
 	new_line = ft_calloc(target_width + 1, sizeof(char));
 	if (!new_line)
 		return (NULL);
-	j = 0;
-	while (j < cur_len)
+	i = 0;
+	while (i < cur_len)
 	{
-		new_line[j] = old_line[j];
-		j++;
+		new_line[i] = old_line[i];
+		i++;
 	}
-	while (j < target_width)
+	while (i < target_width)
 	{
-		new_line[j] = ' ';
-		j++;
+		new_line[i] = ' ';
+		i++;
 	}
 	return (new_line);
 }
