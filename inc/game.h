@@ -14,8 +14,8 @@
 #define TEX_WIDTH 64
 #define TEX_HEIGHT 64
 
-#define MOVE_SPEED 0.05
-#define ROT_SPEED 0.03
+#define MOVE_SPEED 0.13
+#define ROT_SPEED 0.08
 
 typedef struct s_game
 {
