@@ -1,92 +1,262 @@
-git # 00_validate_mapfile
+# 01_read_map_grid
 
 ## Purpose
-Validates the `.cub` map file path and ensures it can be opened for reading before parsing.
+Reads the map grid from `.cub` file and stores it in `t_map->grid` array. This module **only reads** - does not validate or normalize the map.
 
-## File
-- `00_validate_mapfile.c`
+## Files
+- **00_read_map_grid.c** - Main map reading logic
+- **01_read_map_grid_utils.c** - Helper functions for line processing
 
-## Functions
+---
 
-### `int validate_mapfile(const char *file_path)`
-Main validation function that checks:
-1. File name is valid and has `.cub` extension
-2. File is not a directory
-3. File can be opened for reading
+## Functions Overview
+
+### **00_read_map_grid.c**
+
+#### `int is_empty_line(char *line)`
+Checks if a line is empty (only spaces/tabs or newline).
+
+**Returns:**
+- `1` if line is empty
+- `0` if line has content
+
+**Examples:**
+```c
+"    \n"     → 1 (empty)
+"\n"         → 1 (empty)
+"1111"       → 0 (not empty)
+```
+
+---
+
+#### `int is_texture_or_color_line(char *line)`
+Checks if a line is a texture or color definition.
+
+**Recognizes:**
+- `NO ` - North texture
+- `SO ` - South texture  
+- `WE ` - West texture
+- `EA ` - East texture
+- `F ` - Floor color
+- `C ` - Ceiling color
+
+**Returns:**
+- `1` if texture/color line
+- `0` otherwise
+
+**Note:** Handles leading whitespace
+
+---
+
+#### `static void skip_to_map_section(int fd)`
+Skips all texture/color lines and empty lines until first map line is reached.
+
+**Process:**
+1. Read line
+2. If texture/color/empty → free and continue
+3. If map line → free and break (file pointer now at map start)
+
+---
+
+#### `static int calculate_map_height(const char *file_path)`
+Counts the number of map lines (for malloc sizing).
+
+**Process:**
+1. Open file
+2. Skip to map section
+3. Count lines until empty line
+4. Close file
+
+**Returns:**
+- Number of map lines
+- `-1` on error
+
+---
+
+#### `int read_map_grid(const char *file_path, t_map *map)`
+**Main function** - orchestrates the entire map reading process.
 
 **Parameters:**
-- `file_path`: Path to the `.cub` file
+- `file_path`: Path to `.cub` file
+- `map`: Map structure to fill
 
-**Returns:** 
+**Process:**
+```
+1. Calculate map height (file opened and closed)
+2. Allocate memory for map->grid
+3. Open file again  
+4. Skip to map section
+5. Read all map lines (process_lines_loop)
+6. Close file
+```
+
+**Returns:**
 - `0` on success
-- `1` on failure (with error message printed)
+- `1` on error
 
 ---
 
-### `static int validate_filename(const char *path)` 
-Validates the filename structure:
-- Checks for NULL pointer (`ERR_NULL_FILENAME`)
-- Checks for empty string (`ERR_EMPTY_STRING`)
-- Extracts basename using `ft_strrchr(path, '/')`
-- Validates minimum length (5 chars: `x.cub`) (`ERR_TOO_SHORT`)
-- Checks it doesn't start with `.` (`ERR_ONLY_EXTENSION`)
-- Calls `check_extension()` for extension validation
+### **01_read_map_grid_utils.c**
 
-**Returns:** Error code or `0` on success
+#### `char *parse_map_line(char *line)`
+Cleans a map line by removing newline characters.
 
----
+**Process:**
+1. Get line length
+2. Remove trailing `\n` and `\r`
+3. Allocate new string
+4. Copy all characters **including leading spaces**
 
-### `static int check_extension(const char *path, int len)`
-Performs case-sensitive `.cub` extension check:
-- Compares last 4 characters with `.cub` using `ft_strncmp()`
-- If case mismatch, checks if lowercase version matches (`ERR_CASE_SENSITIVE`)
-- Returns `ERR_WRONG_EXTENSION` if extension doesn't match
+**Important:** Preserves leading spaces!
 
-**Returns:** Error code or `0` on success
-
----
-
-### `static int validate_file_access(const char *path)`
-Checks file accessibility:
-1. Attempts to open as directory with `O_DIRECTORY` flag
-   - If succeeds → returns `ERR_IS_DIRECTORY`
-2. Attempts to open with `O_RDONLY` flag
-   - If fails → returns `ERR_OPEN_FAILED`
-
-**Returns:** Error code or `0` on success
-
----
-
-## Error Codes (from error.h)
-- `ERR_NULL_FILENAME` - NULL file path provided
-- `ERR_EMPTY_STRING` - Empty string provided
-- `ERR_TOO_SHORT` - Filename shorter than 5 characters
-- `ERR_WRONG_EXTENSION` - Extension is not `.cub`
-- `ERR_ONLY_EXTENSION` - Filename starts with `.`
-- `ERR_CASE_SENSITIVE` - Extension case mismatch (e.g., `.CUB`)
-- `ERR_IS_DIRECTORY` - Path points to a directory
-- `ERR_OPEN_FAILED` - Cannot open file for reading
-
-## Flow
-```
-validate_mapfile()
-├── validate_filename()
-│   ├── NULL check
-│   ├── Empty string check
-│   ├── ft_strrchr('/') - extract basename
-│   ├── Length validation (>= 5)
-│   ├── Check first char != '.'
-│   └── check_extension()
-│       ├── ft_strncmp() - exact match
-│       └── Case-insensitive check
-└── validate_file_access()
-    ├── open(O_DIRECTORY) - check if directory
-    └── open(O_RDONLY) - check read access
-```
-
-## Usage Example
+**Example:**
 ```c
-if (validate_mapfile("maps/level1.cub") != 0)
-    return (1);  // Error printed by function
-// Proceed with parsing...
+"   111\n"  → "   111"  (spaces preserved)
+"100N01\r\n" → "100N01"
 ```
+
+---
+
+#### `static int process_single_map_line(char *line, t_map *map, int i)`
+Processes one map line and updates width tracking.
+
+**Process:**
+1. Parse the line (remove newlines)
+2. Store in `map->grid[i]`
+3. Update `map->width` if this line is longer
+
+**Returns:**
+- `0` on success
+- `1` on malloc failure
+
+---
+
+#### `int process_lines_loop(int fd, t_map *map)`
+Reads all map lines from current file pointer position.
+
+**Assumption:** File pointer already at first map line (skip_to_map_section was called)
+
+**Process:**
+```
+i = 0
+while (line)
+{
+    if empty_line → STOP (map ended)
+    process_single_map_line()
+    i++
+}
+```
+
+**Returns:**
+- `0` on success
+- `1` on error
+
+---
+
+## Flow Diagram
+
+```
+read_map_grid(file_path, map)
+│
+├─► calculate_map_height(file_path)
+│   ├── open(file)
+│   ├── skip_to_map_section(fd)
+│   ├── count lines until empty
+│   └── close(file)
+│   └── return count
+│
+├─► map->height = count
+├─► malloc(map->grid)
+│
+├─► open(file)  [NEW FD, pointer at start]
+├─► skip_to_map_section(fd)
+│   └── Skip NO/SO/WE/EA/F/C/empty lines
+│
+├─► process_lines_loop(fd, map)
+│   │
+│   └─► for each line:
+│       ├── if empty → STOP
+│       └── process_single_map_line()
+│           ├── parse_map_line()
+│           ├── store in grid[i]
+│           └── update max width
+│
+└─► close(file)
+```
+
+---
+
+## Example
+
+**Input File:**
+```
+NO assets/textures/north_wall.xpm
+SO assets/textures/south_wall.xpm
+F 220,100,0
+C 135,206,235
+
+   111
+  11011
+ 1100N011
+  11011
+   111
+
+```
+
+**After read_map_grid:**
+```c
+map->height = 5
+map->width = 9  // longest line
+
+map->grid[0] = "   111"      // 6 chars (spaces preserved!)
+map->grid[1] = "  11011"     // 7 chars
+map->grid[2] = " 1100N011"   // 9 chars (max)
+map->grid[3] = "  11011"     // 7 chars
+map->grid[4] = "   111"      // 6 chars
+map->grid[5] = NULL
+```
+
+**Note:** 
+- ✅ Lines are **different lengths** (irregular)
+- ✅ **Leading spaces preserved**
+- ❌ NOT normalized yet (happens in validate_map)
+- ❌ NOT validated yet
+
+---
+
+## Important Notes
+
+### Why File Opened Twice?
+1. **First open:** Count lines (need size for malloc)
+2. **Second open:** Read actual data
+
+**Alternative:** Use dynamic arrays, but this is simpler.
+
+### Why Preserve Spaces?
+Irregular maps need spaces to maintain structure:
+```
+   111      ← These spaces are meaningful!
+  11011
+ 1100N011
+```
+
+Later, `normalize_to_rectangle()` will:
+1. Extend short lines with spaces
+2. Convert all spaces to '1' (walls)
+
+### File Pointer Position
+After `skip_to_map_section(fd)`, file pointer is positioned **right before first map line**.
+
+`process_lines_loop()` starts reading from current position - no texture/color skipping needed!
+
+---
+
+## Separation of Concerns
+
+| Module | Responsibility |
+|--------|----------------|
+| `read_map_grid` | **Read** raw map data |
+| `validate_map` | **Validate** and normalize |
+| `parse_textures` | **Parse** texture/color info |
+
+Each module does **one thing** well!
