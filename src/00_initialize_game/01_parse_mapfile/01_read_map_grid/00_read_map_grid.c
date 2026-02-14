@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 01:20:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 19:43:12 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 21:34:52 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	is_empty_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+	while (line[i] && (line[i] == ' '))
 		i++;
 	if (!line[i] || line[i] == '\n')
 		return (1);
@@ -30,7 +30,7 @@ int	is_texture_or_color_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+	while (line[i] && (line[i] == ' '))
 		i++;
 	if (ft_strncmp(&line[i], "NO ", 3) == 0)
 		return (1);

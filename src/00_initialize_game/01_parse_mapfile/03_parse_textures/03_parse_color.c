@@ -17,11 +17,11 @@ static int	is_valid_number(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+	while (str[i] && (str[i] == ' '))
 		i++;
 	if (!str[i])
 		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+	while (str[i] && str[i] != ' ' && str[i] != '\n')
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
@@ -29,7 +29,7 @@ static int	is_valid_number(char *str)
 	}
 	while (str[i])
 	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+		if (str[i] != ' ' && str[i] != '\n')
 			return (0);
 		i++;
 	}
@@ -80,7 +80,7 @@ int	parse_color_values(char *line, t_texture *tex)
 
 	if (tex->set)
 		return (TEX_ERR_DUPLICATE);
-	while (*line && (*line == ' ' || *line == '\t'))
+	while (*line && (*line == ' '))
 		line++;
 	split = ft_split(line, ',');
 	if (!split)

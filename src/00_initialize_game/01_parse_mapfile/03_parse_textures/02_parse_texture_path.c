@@ -18,12 +18,12 @@ char	*extract_path(char *line)
 	char	*end;
 	int		len;
 
-	while (*line && (*line == ' ' || *line == '\t'))
+	while (*line && (*line == ' '))
 		line++;
 	if (!*line || *line == '\n')
 		return (NULL);
 	end = line;
-	while (*end && *end != ' ' && *end != '\t' && *end != '\n')
+	while (*end && *end != ' ' && *end != '\n')
 		end++;
 	len = end - line;
 	path = ft_substr(line, 0, len);

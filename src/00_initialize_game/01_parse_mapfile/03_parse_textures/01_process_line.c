@@ -14,7 +14,7 @@
 
 int	get_texture_type(char *line)
 {
-	while (*line && (*line == ' ' || *line == '\t'))
+	while (*line && (*line == ' '))
 		line++;
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (1);
