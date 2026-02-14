@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 19:08:39 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 00:35:59 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 # include <stdint.h>
 # include <unistd.h>
 
-enum
+typedef enum e_error
 {
-	ERR_NULL_FILENAME = (1 << 0),
-	ERR_EMPTY_STRING = (1 << 1),
-	ERR_TOO_SHORT = (1 << 2),
-	ERR_WRONG_EXTENSION = (1 << 3),
-	ERR_ONLY_EXTENSION = (1 << 4),
-	ERR_CASE_SENSITIVE = (1 << 5),
-	ERR_TRAILING_SPACE = (1 << 6),
-	ERR_IS_DIRECTORY = (1 << 7),
-	ERR_OPEN_FAILED = (1 << 8),
-	TEX_ERR_INVALID_ID = (1 << 9),
-	TEX_ERR_MISSING_PATH = (1 << 10),
-	TEX_ERR_DUPLICATE = (1 << 11),
-	TEX_ERR_OPEN_FAILED = (1 << 12),
-	TEX_ERR_INVALID_COLOR = (1 << 13),
-	TEX_ERR_COLOR_RANGE = (1 << 14),
-	TEX_ERR_MISSING_ELEMENT = (1 << 15)
-};
+	ERR_NULL_FILENAME,
+	ERR_EMPTY_STRING,
+	ERR_TOO_SHORT,
+	ERR_NO_EXTENSION,
+	ERR_WRONG_EXTENSION,
+	ERR_ONLY_EXTENSION,
+	ERR_TRAILING_SPACE,
+	ERR_IS_DIRECTORY,
+	ERR_OPEN_FAILED,
+	TEX_ERR_INVALID_ID,
+	TEX_ERR_MISSING_PATH,
+	TEX_ERR_DUPLICATE,
+	TEX_ERR_OPEN_FAILED,
+	TEX_ERR_INVALID_COLOR,
+	TEX_ERR_COLOR_RANGE,
+	TEX_ERR_MISSING_ELEMENT
+}	t_error;
 
-void	print_file_parsing_error(int error);
-void	print_texture_error(int error);
+void	print_file_parsing_error(t_error error);
+void	print_texture_error(t_error error);
 
 #endif

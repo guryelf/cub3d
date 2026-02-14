@@ -12,22 +12,18 @@
 
 #include "map.h"
 
-static int	check_extension(const char *path, int len)
+static int	check_extension(const char *basename)
 {
 	const char	*ext;
-	int			i;
 
-	ext = path + len - 4;
-	if (ft_strncmp(ext, ".cub", 4) == 0)
-		return (0);
-	i = 0;
-	while (i < 4)
-	{
-		if (ft_tolower(ext[i]) != ".cub"[i])
-			return (ERR_WRONG_EXTENSION);
-		i++;
-	}
-	return (ERR_CASE_SENSITIVE);
+	if (basename[0] == '.')
+		return (ERR_ONLY_EXTENSION);
+	ext = ft_strrchr(basename, '.');
+	if (!ext)
+		return (ERR_NO_EXTENSION);
+	if (ft_strncmp(ext, ".cub", 5) != 0)
+		return (ERR_WRONG_EXTENSION);
+	return (0);
 }
 
 static int	validate_file_access(const char *path)
@@ -49,7 +45,6 @@ static int	validate_file_access(const char *path)
 
 static int	validate_filename(const char *path)
 {
-	int			len;
 	const char	*basename;
 	const char	*slash;
 
@@ -62,9 +57,7 @@ static int	validate_filename(const char *path)
 		basename = slash + 1;
 	else
 		basename = path;
-	if (basename[0] == '.')
-		return (ERR_ONLY_EXTENSION);
-	return (check_extension(basename, len));
+	return (check_extension(basename));
 }
 
 int	validate_mapfile(const char *file_path)
