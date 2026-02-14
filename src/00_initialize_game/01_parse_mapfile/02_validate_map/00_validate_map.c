@@ -33,10 +33,10 @@ static int	has_space_in_middle(char *line)
 	{
 		if (line[i] == '0' || line[i] == '1' || is_player_char(line[i]))
 			found_map_char = 1;
-		else if (line[i] == ' ' && found_map_char)
+		else if ((line[i] == ' ' || line[i] == '\t') && found_map_char)
 		{
 			i++;
-			while (line[i] == ' ')
+			while (line[i] == ' ' || line[i] == '\t')
 				i++;
 			if (line[i] && (line[i] == '0' || line[i] == '1'
 					|| is_player_char(line[i])))
