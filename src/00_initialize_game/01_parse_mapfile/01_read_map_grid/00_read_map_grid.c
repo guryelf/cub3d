@@ -1,37 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_read_map_grid.c                              :+:      :+:    :+:   */
+/*   00_read_map_grid.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/13 22:01:22 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 01:05:00 by rakman           ###   ########.fr       */
+/*   Created: 2026/02/14 01:20:00 by rakman            #+#    #+#             */
+/*   Updated: 2026/02/14 01:20:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include <fcntl.h>
-
-int	is_map_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-		i++;
-	if (!line[i] || line[i] == '\n')
-		return (0);
-	while (line[i] && line[i] != '\n')
-	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
-			&& line[i] != '\t' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W')
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static void	process_count_line(char *line, int *count, int *in_map, int *done)
 {
@@ -73,6 +53,9 @@ static int	count_map_lines(const char *file_path)
 
 int	read_map_grid(const char *file_path, t_map *map)
 {
+	int		fd;
+	int		ret;
+
 	map->height = count_map_lines(file_path);
 	if (map->height <= 0)
 		return (1);
@@ -80,7 +63,10 @@ int	read_map_grid(const char *file_path, t_map *map)
 	if (!map->grid)
 		return (1);
 	map->width = 0;
-	if (read_grid_from_file(file_path, map) != 0)
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
 		return (1);
-	return (0);
+	ret = process_lines_loop(fd, map);
+	close(fd);
+	return (ret);
 }

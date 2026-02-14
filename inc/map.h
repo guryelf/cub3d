@@ -33,6 +33,7 @@ int				read_map_grid(const char *file_path, t_map *map);
 int				is_map_line(char *line);
 char			*parse_map_line(char *line);
 int				process_grid_line(char *line, t_map *map, int *i, int *in_map);
+int				process_lines_loop(int fd, t_map *map);
 int				validate_map(t_map *map);
 void			normalize_to_rectangle(t_map *map);
 void			replace_spaces_with_walls(t_map *map);

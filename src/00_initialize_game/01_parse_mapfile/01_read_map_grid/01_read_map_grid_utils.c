@@ -6,12 +6,32 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 22:12:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/13 22:07:43 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/14 01:20:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include <fcntl.h>
+
+int	is_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (!line[i] || line[i] == '\n')
+		return (0);
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
+			&& line[i] != '\t' && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*parse_map_line(char *line)
 {
@@ -55,7 +75,7 @@ int	process_grid_line(char *line, t_map *map, int *i, int *in_map)
 	return (0);
 }
 
-static int	process_lines_loop(int fd, t_map *map)
+int	process_lines_loop(int fd, t_map *map)
 {
 	char	*line;
 	int		i;
@@ -81,17 +101,4 @@ static int	process_lines_loop(int fd, t_map *map)
 	if (line)
 		free(line);
 	return (0);
-}
-
-int	read_map_grid(const char *file_path, t_map *map)
-{
-	int		fd;
-	int		ret;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	ret = process_lines_loop(fd, map);
-	close(fd);
-	return (ret);
 }
