@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 04:59:37 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:20:55 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ typedef enum e_error
 	TEX_ERR_OPEN_FAILED,
 	TEX_ERR_INVALID_COLOR,
 	TEX_ERR_COLOR_RANGE,
-	TEX_ERR_MISSING_ELEMENT
+	TEX_ERR_MISSING_ELEMENT,
+	MAP_ERR_SNEAKY_FILE,
+	ERR_END_WITH_NEWLINE
 }	t_error;
 
 void	print_file_parsing_error(t_error error);

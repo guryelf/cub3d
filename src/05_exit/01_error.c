@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 14:14:54 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/15 00:35:58 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:21:28 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	print_file_parsing_error(t_error error)
 		msg = "Error: Wrong extension (must be .cub)\n";
 	else if (error == ERR_IS_DIRECTORY)
 		msg = "Error: Path is a directory\n";
+	else if (error == ERR_END_WITH_NEWLINE)
+		msg = "Error: File ends with a newline character\n";
+	else if (error == MAP_ERR_SNEAKY_FILE)
+		msg = "Error: Sneaky file detected (too short or invalid content)\n";
 	else
 		msg = "Error: Cannot open file\n";
 	write(2, msg, ft_strlen(msg));
