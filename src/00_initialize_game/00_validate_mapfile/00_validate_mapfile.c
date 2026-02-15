@@ -74,5 +74,10 @@ int	validate_mapfile(const char *file_path)
 	}
 	if (dispatch_sneaky_files(file_path) != 0)
 		return (1);
+	if (file_ends_with_next_line(file_path))
+	{
+		write(2, "Error: File ends with a newline\n", 32);
+		return (1);
+	}
 	return (0);
 }
