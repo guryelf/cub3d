@@ -34,7 +34,7 @@ static int	validate_characters(t_map *map)
 		while (map->grid[y] && map->grid[y][x])
 		{
 			if (!is_valid_char(map->grid[y][x]))
-				return (1);
+				return (print_error(MSG_INVALID_MAP_CHAR), 1);
 			x++;
 		}
 		y++;
@@ -67,7 +67,11 @@ static int	find_and_store_player(t_map *map)
 		}
 		y++;
 	}
-	return (count != 1);
+	if (count == 0)
+		return (print_error(MSG_NO_PLAYER), 1);
+	if (count > 1)
+		return (print_error(MSG_MULTIPLE_PLAYERS), 1);
+	return (0);
 }
 
 int	validate_map(t_map *map)

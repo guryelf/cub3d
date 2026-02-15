@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 01:20:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/14 21:34:52 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 11:56:18 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	read_map_grid(const char *file_path, t_map *map)
 
 	map->height = calculate_map_height(file_path);
 	if (map->height <= 0)
-		return (1);
+		return (print_error(MSG_EMPTY_MAP), 1);
 	map->grid = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->grid)
 		return (1);

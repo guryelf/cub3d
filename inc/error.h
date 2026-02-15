@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 11:54:45 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 11:56:18 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # define MSG_MAP_READING "Failed to read map"
 # define MSG_MAP_VALIDATION "Map validation failed"
 # define MSG_MAP_NOT_ENCLOSED "Map is not enclosed by walls"
+# define MSG_INVALID_MAP_CHAR "Invalid character in map"
+# define MSG_NO_PLAYER "No player found in map"
+# define MSG_MULTIPLE_PLAYERS "Multiple players found in map"
+# define MSG_EMPTY_MAP "Map is empty"
 # define MSG_TEXTURE_PARSING "Failed to parse textures"
 # define MSG_MISSING_TEXTURE "Missing texture or color element"
 # define MSG_SNEAKY_FILE "Invalid file structure"
