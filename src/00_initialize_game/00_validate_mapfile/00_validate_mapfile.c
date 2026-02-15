@@ -17,12 +17,12 @@ static int	check_extension(const char *basename)
 	const char	*ext;
 
 	if (basename[0] == '.')
-		return (ERR_ONLY_EXTENSION);
+		return (print_error(MSG_ONLY_EXTENSION), 1);
 	ext = ft_strrchr(basename, '.');
 	if (!ext)
-		return (ERR_NO_EXTENSION);
+		return (print_error(MSG_NO_EXTENSION), 1);
 	if (ft_strncmp(ext, ".cub", 5) != 0)
-		return (ERR_WRONG_EXTENSION);
+		return (print_error(MSG_WRONG_EXTENSION), 1);
 	return (0);
 }
 
@@ -34,11 +34,11 @@ static int	validate_file_access(const char *path)
 	if (fd >= 0)
 	{
 		close(fd);
-		return (ERR_IS_DIRECTORY);
+		return (print_error(MSG_IS_DIRECTORY), 1);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (ERR_OPEN_FAILED);
+		return (print_error(MSG_OPEN_FAILED), 1);
 	close(fd);
 	return (0);
 }
@@ -49,7 +49,7 @@ static int	validate_filename(const char *path)
 	const char	*slash;
 
 	if (*path == '\0')
-		return (ERR_EMPTY_STRING);
+		return (print_error(MSG_EMPTY_STRING), 1);
 	slash = ft_strrchr(path, '/');
 	if (slash)
 		basename = slash + 1;
@@ -60,16 +60,13 @@ static int	validate_filename(const char *path)
 
 int	validate_mapfile(const char *file_path)
 {
-	int	error;
-
-	error = validate_filename(file_path);
-	if (!error)
-		error = validate_file_access(file_path);
-	if (error)
-		return (print_error(error), 1);
+	if (validate_filename(file_path) != 0)
+		return (1);
+	if (validate_file_access(file_path) != 0)
+		return (1);
 	if (dispatch_sneaky_files(file_path) != 0)
-		return (print_error(MAP_ERR_SNEAKY_FILE), 1);
+		return (1);
 	if (file_ends_with_next_line(file_path) != 0)
-		return (print_error(ERR_END_WITH_NEWLINE), 1);
+		return (1);
 	return (0);
 }

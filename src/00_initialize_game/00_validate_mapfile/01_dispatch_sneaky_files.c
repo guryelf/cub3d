@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 09:38:12 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 09:54:40 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,12 @@ int	dispatch_sneaky_files(const char *file_path)
 	{
 		consume_remaining_lines(fd);
 		close(fd);
-		print_error(ERR_INVALID_CONFIG);
-		return (1);
+		return (print_error(MSG_SNEAKY_FILE), 1);
 	}
 	if (check_map_section(fd) != 0)
 	{
 		close(fd);
-		print_error(ERR_INVALID_MAP_SECTION);
-		return (1);
+		return (print_error(MSG_SNEAKY_FILE), 1);
 	}
 	close(fd);
 	return (0);

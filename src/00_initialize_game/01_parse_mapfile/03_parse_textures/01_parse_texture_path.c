@@ -36,21 +36,21 @@ int	validate_texture_file(const char *path)
 	int	len;
 
 	if (!path || !*path)
-		return (TEX_ERR_MISSING_PATH);
+		return (print_error(MSG_MISSING_TEXTURE_PATH), 1);
 	len = ft_strlen(path);
 	if (len < 5)
-		return (TEX_ERR_MISSING_PATH);
+		return (print_error(MSG_MISSING_TEXTURE_PATH), 1);
 	if (ft_strncmp(path + len - 4, ".xpm", 4) != 0)
-		return (TEX_ERR_INVALID_ID);
+		return (print_error(MSG_INVALID_TEXTURE_ID), 1);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
 	{
 		close(fd);
-		return (ERR_IS_DIRECTORY);
+		return (print_error(MSG_IS_DIRECTORY), 1);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (TEX_ERR_OPEN_FAILED);
+		return (print_error(MSG_TEXTURE_FILE_OPEN), 1);
 	close(fd);
 	return (0);
 }
@@ -58,19 +58,14 @@ int	validate_texture_file(const char *path)
 int	set_texture_path(char **dest, char *line, int offset)
 {
 	char	*path;
-	int		err;
 
 	if (*dest)
-		return (TEX_ERR_DUPLICATE);
+		return (print_error(MSG_DUPLICATE_TEXTURE), 1);
 	path = extract_path(line + offset);
 	if (!path)
-		return (TEX_ERR_MISSING_PATH);
-	err = validate_texture_file(path);
-	if (err)
-	{
-		free(path);
-		return (err);
-	}
+		return (print_error(MSG_MISSING_TEXTURE_PATH), 1);
+	if (validate_texture_file(path) != 0)
+		return (free(path), 1);
 	*dest = path;
 	return (0);
 }

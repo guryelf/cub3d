@@ -16,10 +16,7 @@ static int	validate_textures_complete(t_map *map)
 {
 	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
 		|| !map->floor.set || !map->ceil.set)
-	{
-		print_error(TEX_ERR_MISSING_ELEMENT);
-		return (1);
-	}
+		return (print_error(MSG_MISSING_TEXTURE), 1);
 	return (0);
 }
 
@@ -63,9 +60,6 @@ int	parse_textures(const char *file_path, t_map *map)
 		free(line);
 	close(fd);
 	if (err)
-	{
-		print_error(err);
 		return (1);
-	}
 	return (validate_textures_complete(map));
 }

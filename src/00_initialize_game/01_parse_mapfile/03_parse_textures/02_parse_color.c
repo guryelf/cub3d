@@ -39,11 +39,11 @@ static int	is_valid_number(char *str)
 static int	validate_color_range(t_texture *tex)
 {
 	if (tex->r < 0 || tex->r > 255)
-		return (TEX_ERR_COLOR_RANGE);
+		return (print_error(MSG_COLOR_RANGE), 1);
 	if (tex->g < 0 || tex->g > 255)
-		return (TEX_ERR_COLOR_RANGE);
+		return (print_error(MSG_COLOR_RANGE), 1);
 	if (tex->b < 0 || tex->b > 255)
-		return (TEX_ERR_COLOR_RANGE);
+		return (print_error(MSG_COLOR_RANGE), 1);
 	return (0);
 }
 
@@ -58,7 +58,7 @@ static int	parse_rgb_values(char **split, t_texture *tex)
 		while (i < 3)
 			free(split[i++]);
 		free(split);
-		return (TEX_ERR_INVALID_COLOR);
+		return (print_error(MSG_INVALID_COLOR), 1);
 	}
 	tex->r = ft_atoi(split[0]);
 	tex->g = ft_atoi(split[1]);
@@ -68,7 +68,7 @@ static int	parse_rgb_values(char **split, t_texture *tex)
 		free(split[i++]);
 	free(split);
 	if (validate_color_range(tex))
-		return (TEX_ERR_COLOR_RANGE);
+		return (1);
 	tex->set = 1;
 	return (0);
 }
@@ -79,12 +79,12 @@ int	parse_color_values(char *line, t_texture *tex)
 	int		i;
 
 	if (tex->set)
-		return (TEX_ERR_DUPLICATE);
+		return (print_error(MSG_DUPLICATE_TEXTURE), 1);
 	while (*line && (*line == ' '))
 		line++;
 	split = ft_split(line, ',');
 	if (!split)
-		return (TEX_ERR_INVALID_COLOR);
+		return (print_error(MSG_INVALID_COLOR), 1);
 	i = 0;
 	while (split[i])
 		i++;
@@ -93,7 +93,7 @@ int	parse_color_values(char *line, t_texture *tex)
 		while (--i >= 0)
 			free(split[i]);
 		free(split);
-		return (TEX_ERR_INVALID_COLOR);
+		return (print_error(MSG_INVALID_COLOR), 1);
 	}
 	return (parse_rgb_values(split, tex));
 }

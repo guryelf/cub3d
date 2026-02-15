@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 00:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 05:10:46 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 09:58:08 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	file_ends_with_next_line(const char *file_path)
 	{
 		len = ft_strlen(last_line);
 		if (len > 0 && last_line[len - 1] == '\n')
+		{
+			print_error(MSG_FILE_NEWLINE);
 			result = 1;
+		}
 		free(last_line);
 	}
 	return (result);
