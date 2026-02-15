@@ -14,20 +14,18 @@
 
 char	*extract_path(char *line)
 {
-	char	*path;
 	char	*end;
-	int		len;
 
-	while (*line && (*line == ' '))
+	while (*line && *line != ' ')
+		line++;
+	while (*line && *line == ' ')
 		line++;
 	if (!*line || *line == '\n')
 		return (NULL);
 	end = line;
 	while (*end && *end != ' ' && *end != '\n')
 		end++;
-	len = end - line;
-	path = ft_substr(line, 0, len);
-	return (path);
+	return (ft_substr(line, 0, end - line));
 }
 
 int	validate_texture_file(const char *path)
@@ -55,15 +53,13 @@ int	validate_texture_file(const char *path)
 	return (0);
 }
 
-int	set_texture_path(char **dest, char *line, int offset)
+int	set_texture_path(char **dest, char *line)
 {
 	char	*path;
 
 	if (*dest)
 		return (print_error(MSG_DUPLICATE_TEXTURE), 1);
-	path = extract_path(line + offset);
-	if (!path)
-		return (print_error(MSG_MISSING_TEXTURE_PATH), 1);
+	path = extract_path(line);
 	if (validate_texture_file(path) != 0)
 		return (free(path), 1);
 	*dest = path;

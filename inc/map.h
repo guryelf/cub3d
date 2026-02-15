@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:25 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 09:06:47 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 10:09:59 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char			*extract_path(char *line);
 int				validate_texture_file(const char *path);
 int				parse_file(const char *file_path);
 int				parse_textures(const char *file_path, t_map *map);
-int				set_texture_path(char **dest, char *line, int offset);
+int				set_texture_path(char **dest, char *line);
 int				parse_color_values(char *line, t_texture *tex);
 int				read_map_grid(const char *file_path, t_map *map);
 int				is_empty_line(char *line);

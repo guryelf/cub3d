@@ -25,13 +25,13 @@ static int	process_line(char *line, t_map *map)
 	while (*line && *line == ' ')
 		line++;
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (set_texture_path(&map->no_path, line, 3));
+		return (set_texture_path(&map->no_path, line));
 	if (ft_strncmp(line, "SO ", 3) == 0)
-		return (set_texture_path(&map->so_path, line, 3));
+		return (set_texture_path(&map->so_path, line));
 	if (ft_strncmp(line, "WE ", 3) == 0)
-		return (set_texture_path(&map->we_path, line, 3));
+		return (set_texture_path(&map->we_path, line));
 	if (ft_strncmp(line, "EA ", 3) == 0)
-		return (set_texture_path(&map->ea_path, line, 3));
+		return (set_texture_path(&map->ea_path, line));
 	if (ft_strncmp(line, "F ", 2) == 0)
 		return (parse_color_values(line + 2, &map->floor));
 	if (ft_strncmp(line, "C ", 2) == 0)
@@ -43,23 +43,18 @@ int	parse_textures(const char *file_path, t_map *map)
 {
 	int		fd;
 	char	*line;
-	int		err;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	err = 0;
 	line = get_next_line(fd);
-	while (line && !err)
+	while (line)
 	{
-		err = process_line(line, map);
+		if (process_line(line, map) != 0)
+			return (free(line), close(fd), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-		free(line);
 	close(fd);
-	if (err)
-		return (1);
 	return (validate_textures_complete(map));
 }
