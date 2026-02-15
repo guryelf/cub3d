@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 05:11:31 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 07:14:26 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ int	is_valid_identifier(const char *line)
 	return (0);
 }
 
-static int	count_words(const char *line)
+int	validate_line_format(const char *line)
 {
 	int	i;
 	int	word_count;
 
+	if (line[0] == 'C' || line[0] == 'F')
+		return (1);
 	i = 0;
 	word_count = 0;
 	while (line[i] && line[i] != '\n')
@@ -57,30 +59,21 @@ static int	count_words(const char *line)
 		if (line[i] && line[i] != '\n')
 		{
 			word_count++;
-			while (line[i] && line[i] != ' '
-				&& line[i] != '\n')
+			while (line[i] && line[i] != ' ' && line[i] != '\n')
 				i++;
 		}
 	}
-	return (word_count);
-}
-
-int	validate_line_format(const char *line)
-{
-	if (line[0] == 'C' || line[0] == 'F')
-		return (1);
-	return (count_words(line) == 2);
+	return (word_count == 2);
 }
 
 void	consume_remaining_lines(int fd)
 {
 	char	*line;
 
-	while (1)
+	line = get_next_line(fd);
+	while (line)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
 		free(line);
+		line = get_next_line(fd);
 	}
 }
