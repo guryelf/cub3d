@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 07:10:13 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 09:38:12 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	dispatch_sneaky_files(const char *file_path)
 	{
 		consume_remaining_lines(fd);
 		close(fd);
-		write(2, "Error\nInvalid configuration section\n", 37);
+		print_error(ERR_INVALID_CONFIG);
 		return (1);
 	}
 	if (check_map_section(fd) != 0)
 	{
 		close(fd);
-		write(2, "Error\nInvalid map section\n", 26);
+		print_error(ERR_INVALID_MAP_SECTION);
 		return (1);
 	}
 	close(fd);

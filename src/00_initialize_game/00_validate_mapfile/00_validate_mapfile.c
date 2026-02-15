@@ -66,10 +66,10 @@ int	validate_mapfile(const char *file_path)
 	if (!error)
 		error = validate_file_access(file_path);
 	if (error)
-		return (print_file_parsing_error(error), 1);
-	if (dispatch_sneaky_files(file_path))
-		return (print_file_parsing_error(MAP_ERR_SNEAKY_FILE), 1);
-	if (file_ends_with_next_line(file_path))
-		return (print_file_parsing_error(ERR_END_WITH_NEWLINE), 1);
+		return (print_error(error), 1);
+	if (dispatch_sneaky_files(file_path) != 0)
+		return (print_error(MAP_ERR_SNEAKY_FILE), 1);
+	if (file_ends_with_next_line(file_path) != 0)
+		return (print_error(ERR_END_WITH_NEWLINE), 1);
 	return (0);
 }

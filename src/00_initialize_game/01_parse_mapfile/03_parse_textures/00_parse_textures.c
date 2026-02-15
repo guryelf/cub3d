@@ -12,6 +12,17 @@
 
 #include "../../inc/cub3d.h"
 
+static int	validate_textures_complete(t_map *map)
+{
+	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
+		|| !map->floor.set || !map->ceil.set)
+	{
+		print_error(TEX_ERR_MISSING_ELEMENT);
+		return (1);
+	}
+	return (0);
+}
+
 static int	process_line(char *line, t_map *map)
 {
 	while (*line && *line == ' ')
@@ -28,18 +39,6 @@ static int	process_line(char *line, t_map *map)
 		return (parse_color_values(line + 2, &map->floor));
 	if (ft_strncmp(line, "C ", 2) == 0)
 		return (parse_color_values(line + 2, &map->ceil));
-	return (0);
-}
-
-static int	validate_textures_complete(t_map *map, int err)
-{
-	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path
-		|| !map->floor.set || !map->ceil.set)
-	{
-		if (!err)
-			print_texture_error(TEX_ERR_MISSING_ELEMENT);
-		return (1);
-	}
 	return (0);
 }
 
@@ -64,8 +63,9 @@ int	parse_textures(const char *file_path, t_map *map)
 		free(line);
 	close(fd);
 	if (err)
-		print_texture_error(err);
-	if (validate_textures_complete(map, err))
+	{
+		print_error(err);
 		return (1);
-	return (err != 0);
+	}
+	return (validate_textures_complete(map));
 }

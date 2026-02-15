@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 05:20:55 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 09:38:12 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ typedef enum e_error
 	ERR_TRAILING_SPACE,
 	ERR_IS_DIRECTORY,
 	ERR_OPEN_FAILED,
+	ERR_INVALID_CONFIG,
+	ERR_INVALID_MAP_SECTION,
+	ERR_MAP_READING_FAILED,
+	ERR_MAP_VALIDATION_FAILED,
+	ERR_TEXTURE_PARSING_FAILED,
 	TEX_ERR_INVALID_ID,
 	TEX_ERR_MISSING_PATH,
 	TEX_ERR_DUPLICATE,
@@ -40,6 +45,7 @@ typedef enum e_error
 	ERR_END_WITH_NEWLINE
 }	t_error;
 
+void	print_error(t_error error);
 void	print_file_parsing_error(t_error error);
 void	print_texture_error(t_error error);
 int		file_ends_with_next_line(const char *file_path);

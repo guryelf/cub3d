@@ -39,17 +39,20 @@ int	parse_mapfile(const char *file_path, t_map *map)
 	init_map(map);
 	if (read_map_grid(file_path, map) != 0)
 	{
-		write(2, "Error: Map reading failed\n", 27);
+		print_error(ERR_MAP_READING_FAILED);
+		free_map_data(map);
 		return (1);
 	}
 	if (validate_map(map) != 0)
 	{
-		write(2, "Error: Map validation failed\n", 29);
+		print_error(ERR_MAP_VALIDATION_FAILED);
+		free_map_data(map);
 		return (1);
 	}
 	if (parse_textures(file_path, map) != 0)
 	{
-		write(2, "Error: Texture parsing failed\n", 30);
+		print_error(ERR_TEXTURE_PARSING_FAILED);
+		free_map_data(map);
 		return (1);
 	}
 	return (0);
