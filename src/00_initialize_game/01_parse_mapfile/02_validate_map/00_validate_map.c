@@ -81,5 +81,7 @@ int	validate_map(t_map *map)
 	normalize_map_grid(map);
 	if (validate_enclosure(map) != 0)
 		return (1);
+//	if (check_zeros_enclosure(map) != 0)
+//		return (1);
 	return (0);
 }

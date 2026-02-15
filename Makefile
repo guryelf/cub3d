@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/15 02:31:10 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/15 03:35:40 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_map
                       src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
                       src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
                       src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
+                      src/00_initialize_game/01_parse_mapfile/02_validate_map/03_check_zeros_enclosure.c \
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_texture_path.c \
                       src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parse_color.c \
