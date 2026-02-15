@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 00:35:59 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 04:59:37 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ typedef enum e_error
 
 void	print_file_parsing_error(t_error error);
 void	print_texture_error(t_error error);
+int		file_ends_with_next_line(const char *file_path);
 
 #endif
