@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 14:14:54 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/15 05:21:28 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:23:29 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	print_file_parsing_error(t_error error)
 {
 	const char	*msg;
 
-	if (error == ERR_NULL_FILENAME)
-		msg = "Error: NULL filename\n";
 	else if (error == ERR_EMPTY_STRING)
 		msg = "Error: Empty filename\n";
 	else if (error == ERR_TOO_SHORT)
