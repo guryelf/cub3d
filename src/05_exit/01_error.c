@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 14:14:54 by fguryel           #+#    #+#             */
-/*   Updated: 2026/02/15 05:23:29 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:27:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_file_parsing_error(t_error error)
 {
 	const char	*msg;
 
-	else if (error == ERR_EMPTY_STRING)
+	if (error == ERR_EMPTY_STRING)
 		msg = "Error: Empty filename\n";
 	else if (error == ERR_TOO_SHORT)
 		msg = "Error: Filename too short\n";
@@ -28,8 +28,6 @@ void	print_file_parsing_error(t_error error)
 		msg = "Error: Filename cannot start with a dot\n";
 	else if (error == ERR_TRAILING_SPACE)
 		msg = "Error: Filename has trailing spaces\n";
-	else if (error == ERR_WRONG_EXTENSION)
-		msg = "Error: Wrong extension (must be .cub)\n";
 	else if (error == ERR_IS_DIRECTORY)
 		msg = "Error: Path is a directory\n";
 	else if (error == ERR_END_WITH_NEWLINE)
