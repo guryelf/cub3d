@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 03:16:27 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 03:19:48 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,20 +143,22 @@ static int	check_file_last_char(const char *file_path)
 
 int	dispatch_sneaky_files(const char *file_path)
 {
-	int	fd;
-	int	result;
+	int		fd;
+	int		result;
+	char	*line;
 
-	// TODO: Uncomment when ready to enforce strict newline checking
-	// if (check_file_last_char(file_path) != 0)
-	// {
-	// 	write(2, "Error\nFile must not end with newline\n", 38);
-	// 	return (1);
-	// }
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	if (check_config_section(fd) != 0)
 	{
+		while (1)
+		{
+			line = get_next_line(fd);
+			if (!line)
+				break ;
+			free(line);
+		}
 		close(fd);
 		write(2, "Error\nInvalid configuration section\n", 37);
 		return (1);
