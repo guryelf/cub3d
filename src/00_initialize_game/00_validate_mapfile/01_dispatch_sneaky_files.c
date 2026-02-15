@@ -132,6 +132,7 @@ static int	check_map_section(int fd)
 ** Check if the file's last character is '\n'
 ** If it is, return error (1), otherwise return success (0)
 ** This is to prevent sneaky files that have a valid map but end with a newline,
+*/
 static int	check_file_last_char(const char *file_path)
 {
 	int		fd;
@@ -162,7 +163,7 @@ static int	check_file_last_char(const char *file_path)
 	}
 	free(last_line);
 	return (0);
-}*/
+}
 
 int	dispatch_sneaky_files(const char *file_path)
 {
@@ -191,6 +192,11 @@ int	dispatch_sneaky_files(const char *file_path)
 	if (result != 0)
 	{
 		write(2, "Error\nInvalid map section\n", 26);
+		return (1);
+	}
+	if (check_file_last_char(file_path) != 0)
+	{
+		write(2, "Error\nFile ends with a newline\n", 32);
 		return (1);
 	}
 	return (0);
