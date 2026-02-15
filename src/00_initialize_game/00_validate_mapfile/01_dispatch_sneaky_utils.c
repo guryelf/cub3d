@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 04:21:14 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:11:31 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_blank_line(const char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+		if (line[i] != ' ' && line[i] != '\n')
 			return (0);
 		i++;
 	}
@@ -52,12 +52,12 @@ static int	count_words(const char *line)
 	word_count = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		while (line[i] == ' ' || line[i] == '\t')
+		while (line[i] == ' ')
 			i++;
 		if (line[i] && line[i] != '\n')
 		{
 			word_count++;
-			while (line[i] && line[i] != ' ' && line[i] != '\t'
+			while (line[i] && line[i] != ' '
 				&& line[i] != '\n')
 				i++;
 		}
