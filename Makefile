@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/15 03:35:40 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/15 04:22:22 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_EXIT = src/05_exit/00_clean_exit.c \
 
 SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_mapfile.c \
                       src/00_initialize_game/00_validate_mapfile/01_dispatch_sneaky_files.c \
+                      src/00_initialize_game/00_validate_mapfile/01_dispatch_sneaky_utils.c \
                       src/00_initialize_game/01_parse_mapfile/00_parse_mapfile.c \
                       src/00_initialize_game/01_parse_mapfile/01_read_map_grid/00_read_map_grid.c \
                       src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \

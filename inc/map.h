@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:25 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 03:35:19 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 04:21:50 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,9 @@ int				validate_mapfile(const char *file_path);
 int				dispatch_sneaky_files(const char *file_path);
 int				parse_mapfile(const char *file_path, t_map *map);
 void			free_map_data(t_map *map);
+int				is_blank_line(const char *line);
+int				is_valid_identifier(const char *line);
+int				validate_line_format(const char *line);
+void			consume_remaining_lines(int fd);
 
 #endif
