@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 02:33:10 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 03:16:27 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,53 @@ static int	check_map_section(int fd)
 	return (0);
 }
 
+/*
+** Check if the file's last character is '\n'
+** If it is, return error (1), otherwise return success (0)
+** This is to prevent sneaky files that have a valid map but end with a newline,
+static int	check_file_last_char(const char *file_path)
+{
+	int		fd;
+	char	*line;
+	char	*last_line;
+	int		len;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	last_line = NULL;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (last_line)
+			free(last_line);
+		last_line = line;
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (!last_line)
+		return (1);
+	len = ft_strlen(last_line);
+	if (len > 0 && last_line[len - 1] == '\n')
+	{
+		free(last_line);
+		return (1);
+	}
+	free(last_line);
+	return (0);
+}*/
+
 int	dispatch_sneaky_files(const char *file_path)
 {
 	int	fd;
 	int	result;
 
+	// TODO: Uncomment when ready to enforce strict newline checking
+	// if (check_file_last_char(file_path) != 0)
+	// {
+	// 	write(2, "Error\nFile must not end with newline\n", 38);
+	// 	return (1);
+	// }
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (1);
