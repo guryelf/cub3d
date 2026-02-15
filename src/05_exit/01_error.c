@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../../inc/cub3d.h"
 
 void	print_file_parsing_error(t_error error)
 {

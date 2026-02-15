@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../../inc/cub3d.h"
 
 static int	get_max_width(t_map *map)
 {

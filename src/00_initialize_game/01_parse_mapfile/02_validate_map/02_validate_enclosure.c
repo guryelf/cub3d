@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../../inc/cub3d.h"
 
 static void	free_grid_copy(char **grid, int height)
 {

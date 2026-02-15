@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../../inc/cub3d.h"
 
 static int	check_extension(const char *basename)
 {

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
+#include "../../inc/cub3d.h"
 
 int	is_empty_line(char *line)
 {

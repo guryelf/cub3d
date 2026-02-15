@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
+#include "../../inc/cub3d.h"
 
 char	*parse_map_line(char *line)
 {
