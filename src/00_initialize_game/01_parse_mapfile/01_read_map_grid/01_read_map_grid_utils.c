@@ -19,7 +19,7 @@ char	*parse_map_line(char *line)
 	int		i;
 
 	len = ft_strlen(line);
-	while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
+	if (len > 0 && line[len - 1] == '\n')
 		len--;
 	result = ft_calloc(len + 1, sizeof(char));
 	if (!result)

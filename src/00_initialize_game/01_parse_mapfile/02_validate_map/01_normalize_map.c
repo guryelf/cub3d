@@ -12,25 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-static int	get_max_width(t_map *map)
-{
-	int	i;
-	int	cur_len;
-	int	max_width;
-
-	max_width = 0;
-	i = 0;
-	while (i < map->height)
-	{
-		cur_len = ft_strlen(map->grid[i]);
-		if (cur_len > max_width)
-			max_width = cur_len;
-		i++;
-	}
-	return (max_width);
-}
-
-static char	*extend_and_fill_line(char *old_line, int target_width)
+static char	*fill_line(const char *old_line, int target_width)
 {
 	char	*new_line;
 	int		i;
@@ -54,7 +36,35 @@ static char	*extend_and_fill_line(char *old_line, int target_width)
 	return (new_line);
 }
 
-void	normalize_map_grid(t_map *map)
+static char	*extend_if_needed(const char *old_line, int target_width)
+{
+	int	cur_len;
+
+	cur_len = ft_strlen(old_line);
+	if (cur_len == target_width)
+		return (ft_strdup(old_line));
+	return (fill_line(old_line, target_width));
+}
+
+static int	get_max_width(t_map *map)
+{
+	int	i;
+	int	cur_len;
+	int	max_width;
+
+	max_width = 0;
+	i = 0;
+	while (i < map->height)
+	{
+		cur_len = ft_strlen(map->grid[i]);
+		if (cur_len > max_width)
+			max_width = cur_len;
+		i++;
+	}
+	return (max_width);
+}
+
+int	normalize_map_grid(t_map *map)
 {
 	int		i;
 	char	*new_line;
@@ -63,11 +73,12 @@ void	normalize_map_grid(t_map *map)
 	i = 0;
 	while (i < map->height)
 	{
-		new_line = extend_and_fill_line(map->grid[i], map->width);
+		new_line = extend_if_needed(map->grid[i], map->width);
 		if (!new_line)
-			return ;
+			return (1);
 		free(map->grid[i]);
 		map->grid[i] = new_line;
 		i++;
 	}
+	return (0);
 }
