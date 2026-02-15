@@ -12,11 +12,23 @@
 
 #include "../../inc/cub3d.h"
 
+static void	fill_with_space(char *line, int start, int end)
+{
+	int	i;
+
+	i = start;
+	while (i < end)
+	{
+		line[i] = ' ';
+		i++;
+	}
+}
+
 static char	*fill_line(const char *old_line, int target_width)
 {
 	char	*new_line;
-	int		i;
 	int		cur_len;
+	int		i;
 
 	cur_len = ft_strlen(old_line);
 	new_line = ft_calloc(target_width + 1, sizeof(char));
@@ -28,22 +40,9 @@ static char	*fill_line(const char *old_line, int target_width)
 		new_line[i] = old_line[i];
 		i++;
 	}
-	while (i < target_width)
-	{
-		new_line[i] = ' ';
-		i++;
-	}
+	if (cur_len != target_width)
+		fill_with_space(new_line, cur_len, target_width);
 	return (new_line);
-}
-
-static char	*extend_if_needed(const char *old_line, int target_width)
-{
-	int	cur_len;
-
-	cur_len = ft_strlen(old_line);
-	if (cur_len == target_width)
-		return (ft_strdup(old_line));
-	return (fill_line(old_line, target_width));
 }
 
 static int	get_max_width(t_map *map)
@@ -62,6 +61,19 @@ static int	get_max_width(t_map *map)
 		i++;
 	}
 	return (max_width);
+}
+
+static char	*extend_if_needed(const char *old_line, int target_width)
+{
+	char	*result;
+	int		cur_len;
+
+	cur_len = ft_strlen(old_line);
+	if (cur_len == target_width)
+		result = ft_strdup(old_line);
+	else
+		result = fill_line(old_line, target_width);
+	return (result);
 }
 
 int	normalize_map_grid(t_map *map)
