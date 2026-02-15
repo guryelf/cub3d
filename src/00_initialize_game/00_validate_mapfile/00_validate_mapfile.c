@@ -48,8 +48,6 @@ static int	validate_filename(const char *path)
 	const char	*basename;
 	const char	*slash;
 
-	if (path == NULL)
-		return (ERR_NULL_FILENAME);
 	if (*path == '\0')
 		return (ERR_EMPTY_STRING);
 	slash = ft_strrchr(path, '/');
