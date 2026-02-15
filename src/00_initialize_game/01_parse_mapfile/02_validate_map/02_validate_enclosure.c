@@ -78,5 +78,7 @@ int	validate_enclosure(t_map *map)
 		return (1);
 	result = flood_fill(grid_copy, map, map->player_x, map->player_y);
 	free_grid_copy(grid_copy, map->height);
-	return (result);
+	if (result)
+		return (print_error(MSG_MAP_NOT_ENCLOSED), 1);
+	return (0);
 }

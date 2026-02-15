@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:00:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 07:14:26 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 11:52:04 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ int	validate_line_format(const char *line)
 				i++;
 		}
 	}
-	return (word_count == 2);
+	if (word_count != 2)
+		return (0);
+	return (1);
 }
 
 void	consume_remaining_lines(int fd)

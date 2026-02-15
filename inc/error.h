@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 09:53:04 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 11:54:45 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // Error messages
 # define MSG_MAP_READING "Failed to read map"
 # define MSG_MAP_VALIDATION "Map validation failed"
+# define MSG_MAP_NOT_ENCLOSED "Map is not enclosed by walls"
 # define MSG_TEXTURE_PARSING "Failed to parse textures"
 # define MSG_MISSING_TEXTURE "Missing texture or color element"
 # define MSG_SNEAKY_FILE "Invalid file structure"
@@ -31,6 +32,7 @@
 # define MSG_ONLY_EXTENSION "Filename cannot start with a dot"
 # define MSG_IS_DIRECTORY "Path is a directory"
 # define MSG_OPEN_FAILED "Cannot open file"
+# define MSG_INVALID_CONFIG "Invalid configuration element"
 # define MSG_INVALID_TEXTURE_ID "Invalid texture identifier"
 # define MSG_MISSING_TEXTURE_PATH "Missing texture path"
 # define MSG_DUPLICATE_TEXTURE "Duplicate texture/color definition"
