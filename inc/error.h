@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 05:20:55 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 05:52:49 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 typedef enum e_error
 {
-	ERR_NULL_FILENAME,
 	ERR_EMPTY_STRING,
 	ERR_TOO_SHORT,
 	ERR_NO_EXTENSION,
