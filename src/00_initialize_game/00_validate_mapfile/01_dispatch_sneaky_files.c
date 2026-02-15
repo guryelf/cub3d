@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 03:19:48 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/15 03:30:30 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,29 @@ static int	is_valid_identifier(const char *line)
 	return (0);
 }
 
+static int	validate_line_format(const char *line)
+{
+	int	i;
+	int	word_count;
+
+	if (line[0] == 'C' || line[0] == 'F')
+		return (1);
+	i = 0;
+	word_count = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		while (line[i] == ' ' || line[i] == '\t')
+			i++;
+		if (line[i] && line[i] != '\n')
+		{
+			word_count++;
+			while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+				i++;
+		}
+	}
+	return (word_count == 2);
+}
+
 static int	check_config_section(int fd)
 {
 	char	*line;
@@ -54,7 +77,7 @@ static int	check_config_section(int fd)
 	{
 		if (!is_blank_line(line))
 		{
-			if (is_valid_identifier(line))
+			if (is_valid_identifier(line) && validate_line_format(line))
 				found_count++;
 			else
 			{
