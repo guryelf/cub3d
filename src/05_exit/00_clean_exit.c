@@ -59,6 +59,5 @@ int	clean_exit(t_game *game)
 		free(game->mlx);
 	}
 	free_map_data(&game->map);
-	exit(0);
 	return (0);
 }

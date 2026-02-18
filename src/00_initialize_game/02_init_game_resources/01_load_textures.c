@@ -27,24 +27,32 @@ static int	load_single_texture(t_game *game, t_img *texture, char *path)
 	return (0);
 }
 
+static void	free_loaded_textures(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (game->textures[i].img)
+		{
+			mlx_destroy_image(game->mlx, game->textures[i].img);
+			game->textures[i].img = NULL;
+		}
+		i++;
+	}
+}
+
 int	load_textures(t_game *game)
 {
-	t_img	*north_texture;
-	t_img	*south_texture;
-	t_img	*west_texture;
-	t_img	*east_texture;
-
-	north_texture = &game->textures[0];
-	south_texture = &game->textures[1];
-	west_texture = &game->textures[2];
-	east_texture = &game->textures[3];
-	if (load_single_texture(game, north_texture, game->map.no_path))
-		return (1);
-	if (load_single_texture(game, south_texture, game->map.so_path))
-		return (1);
-	if (load_single_texture(game, west_texture, game->map.we_path))
-		return (1);
-	if (load_single_texture(game, east_texture, game->map.ea_path))
-		return (1);
+	if (load_single_texture(game, &game->textures[0], game->map.no_path))
+		return (free_loaded_textures(game), 1);
+	if (load_single_texture(game, &game->textures[1], game->map.so_path))
+		return (free_loaded_textures(game), 1);
+	if (load_single_texture(game, &game->textures[2], game->map.we_path))
+		return (free_loaded_textures(game), 1);
+	if (load_single_texture(game, &game->textures[3], game->map.ea_path))
+		return (free_loaded_textures(game), 1);
 	return (0);
 }
+

@@ -12,11 +12,16 @@
 
 #include "../../inc/cub3d.h"
 
-static int	init_mlx(t_game *game)
+static int	init_mlx_connection(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (1);
+	return (0);
+}
+
+static int	init_mlx_window(t_game *game)
+{
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
 	if (!game->win)
 		return (1);
@@ -32,7 +37,7 @@ static int	init_mlx(t_game *game)
 
 int	init_game_resources(t_game *game)
 {
-	if (init_mlx(game) != 0)
+	if (init_mlx_connection(game) != 0)
 	{
 		write(2, "Error\nMLX initialization failed\n", 33);
 		return (1);
@@ -42,6 +47,11 @@ int	init_game_resources(t_game *game)
 		write(2, "Error\nTexture loading failed\n", 30);
 		return (1);
 	}
+	if (init_mlx_window(game) != 0)
+	{
+		write(2, "Error\nMLX window initialization failed\n", 40);
+		return (1);
+	}
 	if (set_player_position(game) != 0)
 	{
 		write(2, "Error\nData initialization failed\n", 34);
@@ -49,3 +59,4 @@ int	init_game_resources(t_game *game)
 	}
 	return (0);
 }
+

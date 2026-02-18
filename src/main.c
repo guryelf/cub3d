@@ -34,7 +34,10 @@ int	main(int argc, char *argv[])
 	}
 	ft_bzero(&game, sizeof(t_game));
 	if (initialize_game(&game, argv[1]) != 0)
+	{
+		clean_exit(&game);
 		return (1);
+	}
 	start_game(&game);
 	return (0);
 }
