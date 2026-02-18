@@ -68,5 +68,7 @@ int	validate_mapfile(const char *file_path)
 		return (1);
 	if (file_ends_with_next_line(file_path) != 0)
 		return (1);
+	if (file_has_double_map(file_path) != 0)
+		return (1);
 	return (0);
 }

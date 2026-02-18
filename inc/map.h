@@ -52,6 +52,7 @@ int				validate_enclosure(t_map *map);
 int				check_zeros_enclosure(t_map *map);
 int				validate_mapfile(const char *file_path);
 int				dispatch_sneaky_files(const char *file_path);
+int				file_has_double_map(const char *file_path);
 int				parse_mapfile(const char *file_path, t_map *map);
 void			free_map_data(t_map *map);
 int				is_blank_line(const char *line);
