@@ -55,4 +55,3 @@ int	load_textures(t_game *game)
 		return (free_loaded_textures(game), 1);
 	return (0);
 }
-

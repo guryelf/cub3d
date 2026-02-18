@@ -50,6 +50,8 @@ int				validate_map(t_map *map);
 int			normalize_map_grid(t_map *map);
 int				validate_enclosure(t_map *map);
 int				check_zeros_enclosure(t_map *map);
+int				find_and_store_player(t_map *map);
+int				validate_color_format(const char *line);
 int				validate_mapfile(const char *file_path);
 int				dispatch_sneaky_files(const char *file_path);
 int				file_has_double_map(const char *file_path);

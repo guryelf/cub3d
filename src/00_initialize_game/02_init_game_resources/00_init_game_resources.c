@@ -59,4 +59,3 @@ int	init_game_resources(t_game *game)
 	}
 	return (0);
 }
-
