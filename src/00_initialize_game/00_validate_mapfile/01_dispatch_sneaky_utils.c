@@ -43,13 +43,61 @@ int	is_valid_identifier(const char *line)
 	return (0);
 }
 
+static int	skip_spaces_fc(const char *line, int i)
+{
+	while (line[i] == ' ')
+		i++;
+	return (i);
+}
+
+static int	read_digits(const char *line, int i, int *count)
+{
+	*count = 0;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		(*count)++;
+		i++;
+	}
+	return (i);
+}
+
+static int	validate_color_format(const char *line)
+{
+	int	i;
+	int	digit_count;
+	int	comma;
+
+	i = 1;
+	comma = 0;
+	while (comma < 3)
+	{
+		i = skip_spaces_fc(line, i);
+		if (!(line[i] >= '0' && line[i] <= '9'))
+			return (0);
+		i = read_digits(line, i, &digit_count);
+		if (digit_count < 1 || digit_count > 3)
+			return (0);
+		i = skip_spaces_fc(line, i);
+		comma++;
+		if (comma < 3)
+		{
+			if (line[i] != ',')
+				return (0);
+			i++;
+		}
+	}
+	if (line[i] && line[i] != '\n')
+		return (0);
+	return (1);
+}
+
 int	validate_line_format(const char *line)
 {
 	int	i;
 	int	word_count;
 
 	if (line[0] == 'C' || line[0] == 'F')
-		return (1);
+		return (validate_color_format(line));
 	i = 0;
 	word_count = 0;
 	while (line[i] && line[i] != '\n')
