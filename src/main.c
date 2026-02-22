@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
-
-static int	initialize_game(t_game *game, char *map_file)
-{
-	if (validate_mapfile(map_file) != 0)
-		return (1);
-	if (parse_mapfile(map_file, &game->map) != 0)
-		return (1);
-	if (init_game_resources(game) != 0)
-		return (1);
-	return (0);
-}
+#include "cub3d.h"
 
 int	main(int argc, char *argv[])
 {
-	t_game	game;
+	t_game		game;
+	t_rawdata	*rawdata;
 
 	if (argc != 2)
 	{
@@ -33,11 +23,14 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	ft_bzero(&game, sizeof(t_game));
-	if (initialize_game(&game, argv[1]) != 0)
-	{
-		clean_exit(&game);
+	rawdata = validate_cub_file(argv[1]);
+	if (rawdata == NULL)
 		return (1);
-	}
+	if (parse_cub_file(rawdata, &game.map) != 0)
+		return (free_rawdata(rawdata), free_map_data(&game.map), 1);
+	if (init_game_resources(&game) != 0)
+		return (free_rawdata(rawdata), free_map_data(&game.map), 1);
+	free_rawdata(rawdata);
 	start_game(&game);
 	return (0);
 }

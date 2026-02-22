@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   map.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,6 +18,13 @@
 # include "libft.h"
 # include "texture.h"
 
+typedef struct s_rawfiledata
+{
+	char	**textures;
+	char	**colors;
+	char	**grid;
+}	t_rawdata;
+
 typedef struct s_map
 {
 	char		**grid;
@@ -32,34 +39,36 @@ typedef struct s_map
 	int			player_x;
 	int			player_y;
 	char		player_dir;
-}				t_map;
+}	t_map;
 
-char			*skip_spaces(char *line);
-char			*extract_path(char *line);
-int				validate_texture_file(const char *path);
-int				parse_file(const char *file_path);
-int				parse_textures(const char *file_path, t_map *map);
-int				set_texture_path(char **dest, char *line);
-int				parse_color_values(char *line, t_texture *tex);
-int				read_map_grid(const char *file_path, t_map *map);
-int				is_empty_line(char *line);
-int				is_texture_or_color_line(char *line);
-char			*parse_map_line(char *line);
-int				process_lines_loop(int fd, t_map *map, char *first_line);
-int				validate_map(t_map *map);
-int			normalize_map_grid(t_map *map);
-int				validate_enclosure(t_map *map);
-int				check_zeros_enclosure(t_map *map);
-int				find_and_store_player(t_map *map);
-int				validate_color_format(const char *line);
-int				validate_mapfile(const char *file_path);
-int				dispatch_sneaky_files(const char *file_path);
-int				file_has_double_map(const char *file_path);
-int				parse_mapfile(const char *file_path, t_map *map);
-void			free_map_data(t_map *map);
-int				is_blank_line(const char *line);
-int				is_valid_identifier(const char *line);
-int				validate_line_format(const char *line);
-void			consume_remaining_lines(int fd);
+char		*skip_spaces(char *line);
+char		*extract_path(char *line);
+int			count_lines(char **arr);
+int			count_words(const char *line);
+int			validate_texture_file(const char *path);
+int			parse_file(const char *file_path);
+void		free_map_data(t_map *map);
+t_rawdata	*populate_rawdata(const char *file_path, t_rawdata *rawdata);
+void		free_rawdata(t_rawdata *rawdata);
+int			is_texture_or_color_line(char *line);
+char		*parse_map_line(char *line);
+int			process_lines_loop(int fd, t_map *map, char *first_line);
+int			validate_map_grid(t_rawdata *rawdata);
+int			normalize_map_grid(char **grid);
+int			parse_textures(char **textures, t_map *map);
+int			parse_colors(char **colors, t_map *map);
+int			parse_map_grid(char **grid, t_map *map);
+int			parse_cub_file(t_rawdata *rawdata, t_map *map);
+char		**append_line(char **arr, char *line);
+t_rawdata	*validate_cub_file(const char *file_path);
+int			validate_rawfiledata_configs(t_rawdata *rawdata);
+int			is_enclosed_by_walls(t_map *tempmap);
+int			has_double_map(t_map *tempmap);
+int			is_blank_line(const char *line);
+int			is_valid_texture_line(const char *line);
+int			is_valid_color_line(const char *line);
+int			is_player_char(char c);
+int			is_valid_char(char c);
+void		consume_remaining_lines(int fd);
 
 #endif

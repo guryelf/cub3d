@@ -6,7 +6,7 @@
 #    By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:53:52 by rakman            #+#    #+#              #
-#    Updated: 2026/02/15 05:27:19 by rakman           ###   ########.fr        #
+#    Updated: 2026/02/22 23:50:33 by rakman           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,11 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./inc -I./lib/minilibx-linux -I./lib/get_next_line
 
-# MLX
 MLX_DIR = lib/minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_REPO = https://github.com/42paris/minilibx-linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 
-# Source files
 SRC_MAIN = src/main.c
 
 SRC_CORE = src/01_core/00_game_loop.c \
@@ -33,25 +32,28 @@ SRC_EVENTS = src/04_events/00_key_handler.c \
 SRC_EXIT = src/05_exit/00_clean_exit.c \
            src/05_exit/01_error.c
 
-SRC_INITIALIZE_GAME = src/00_initialize_game/00_validate_mapfile/00_validate_mapfile.c \
-                      src/00_initialize_game/00_validate_mapfile/01_dispatch_sneaky_files.c \
-                      src/00_initialize_game/00_validate_mapfile/01_dispatch_sneaky_utils.c \
-                      src/00_initialize_game/00_validate_mapfile/02_check_file_ending.c \
-                      src/00_initialize_game/00_validate_mapfile/03_file_has_double_map.c \
-                      src/00_initialize_game/00_validate_mapfile/04_validate_color_format.c \
-                      src/00_initialize_game/01_parse_mapfile/00_parse_mapfile.c \
-                      src/00_initialize_game/01_parse_mapfile/01_read_map_grid/00_read_map_grid.c \
-                      src/00_initialize_game/01_parse_mapfile/01_read_map_grid/01_read_map_grid_utils.c \
-                      src/00_initialize_game/01_parse_mapfile/02_validate_map/00_validate_map.c \
-                      src/00_initialize_game/01_parse_mapfile/02_validate_map/01_normalize_map.c \
-                      src/00_initialize_game/01_parse_mapfile/02_validate_map/02_validate_enclosure.c \
-                      src/00_initialize_game/01_parse_mapfile/02_validate_map/03_find_player.c \
-                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/00_parse_textures.c \
-                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/01_parse_texture_path.c \
-                      src/00_initialize_game/01_parse_mapfile/03_parse_textures/02_parse_color.c \
-                      src/00_initialize_game/02_init_game_resources/00_init_game_resources.c \
-                      src/00_initialize_game/02_init_game_resources/01_load_textures.c \
-                      src/00_initialize_game/02_init_game_resources/02_set_player_position.c
+VALIDATE_DIR = src/00_initialize_game/00_validate_file/
+VALIDATE = 00_validate_coordinator.c \
+           01_populate_rawdata.c \
+           02_validate_config_arrays.c \
+           03_validate_texture_lines.c \
+           04_validate_color_lines.c \
+           05_validate_map_grid.c \
+           06_is_enclosed_by_walls.c \
+           07_has_double_map.c \
+           98_validate_utils.c \
+           99_validate_utils.c
+
+SRC_INITIALIZE_GAME = $(addprefix $(VALIDATE_DIR), $(VALIDATE)) \
+                       src/00_initialize_game/01_parse_file/00_parse_coordinator.c \
+                       src/00_initialize_game/01_parse_file/01_parse_textures.c \
+                       src/00_initialize_game/01_parse_file/02_parse_colors.c \
+                       src/00_initialize_game/01_parse_file/03_normalize_map_grid.c \
+                       src/00_initialize_game/01_parse_file/04_parse_map_grid.c \
+                       src/00_initialize_game/01_parse_file/98_parse_utils.c \
+                       src/00_initialize_game/02_init_game/00_init_coordinator.c \
+                       src/00_initialize_game/02_init_game/01_init_textures.c \
+                       src/00_initialize_game/02_init_game/02_init_camera_vectors.c
 
 SRC_RAYCASTING = src/02_raycasting/00_dda.c \
                  src/02_raycasting/01_math_utils.c \
@@ -114,21 +116,25 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
+$(MLX_DIR)/Makefile:
+	/usr/bin/git clone $(MLX_REPO) $(MLX_DIR)
+
+$(MLX_LIB): $(MLX_DIR)/Makefile
+	$(MAKE) -C $(MLX_DIR)
+
 $(NAME): $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
-
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(MLX_DIR) clean
+	@if [ -f "$(MLX_DIR)/Makefile" ]; then $(MAKE) -C $(MLX_DIR) clean; fi
 	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -rf $(MLX_DIR)
 
 re: fclean all
 

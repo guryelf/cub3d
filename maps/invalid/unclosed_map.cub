@@ -1,0 +1,11 @@
+NO ./maps/invalid/textures/north.xpm
+SO ./maps/invalid/textures/south.xpm
+WE ./maps/invalid/textures/west.xpm
+EA ./maps/invalid/textures/east.xpm
+F 20,20,20
+C 200,200,200
+
+1111111
+1N00001
+10000 1
+1111111

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   game.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -41,6 +41,8 @@ typedef struct s_game
 }				t_game;
 
 int			init_game_resources(t_game *game);
+int			init_mlx_connection(t_game *game);
+int			init_mlx_window(t_game *game);
 int			load_textures(t_game *game);
 void		start_game(t_game *game);
 int			render_frame(t_game *game);
@@ -56,6 +58,6 @@ void		move_left(t_game *game);
 void		move_right(t_game *game);
 void		rotate_left(t_game *game);
 void		rotate_right(t_game *game);
-int			set_player_position(t_game *game);
+int			init_camera_vectors(t_game *game);
 
 #endif

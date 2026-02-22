@@ -1,0 +1,10 @@
+NO ./maps/textures/color_no.xpm
+SO ./maps/textures/color_so.xpm
+WE ./maps/textures/color_we.xpm
+EA ./maps/textures/color_ea.xpm
+F 20,20,20
+C 200,200,200
+1111111
+1N00001
+1000001
+1111111

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   error.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 19:08:13 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/15 11:56:18 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/21 13:00:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdint.h>
 # include <unistd.h>
 
-// Error messages
 # define MSG_MAP_READING "Failed to read map"
 # define MSG_MAP_VALIDATION "Map validation failed"
 # define MSG_MAP_NOT_ENCLOSED "Map is not enclosed by walls"
@@ -27,7 +26,10 @@
 # define MSG_MULTIPLE_PLAYERS "Multiple players found in map"
 # define MSG_EMPTY_MAP "Map is empty"
 # define MSG_TEXTURE_PARSING "Failed to parse textures"
-# define MSG_MISSING_TEXTURE "Missing texture or color element"
+# define MSG_MISSING_TEXTURE_ID "Missing texture identifier"
+# define MSG_MISSING_COLOR_ID "Missing color identifier"
+# define MSG_MISSING_MAP_GRID "Missing map grid"
+# define MSG_MISSING_BLANK_LINE "Missing blank line after configs"
 # define MSG_SNEAKY_FILE "Invalid file structure"
 # define MSG_FILE_NEWLINE "File ends with newline"
 # define MSG_EMPTY_STRING "Empty filename"
@@ -38,11 +40,22 @@
 # define MSG_OPEN_FAILED "Cannot open file"
 # define MSG_INVALID_CONFIG "Invalid configuration element"
 # define MSG_INVALID_TEXTURE_ID "Invalid texture identifier"
+# define MSG_INVALID_TEXTCONFIG "Invalid texture configuration"
+# define MSG_INVALID_COLOR_CONFIG "Invalid color configuration"
 # define MSG_MISSING_TEXTURE_PATH "Missing texture path"
+# define MSG_INVALID_TEXTURE_LINE "Invalid texture line format"
 # define MSG_DUPLICATE_TEXTURE "Duplicate texture/color definition"
+# define MSG_DUPLICATE_OR_MISSING_CONFIG_SEC "Config must have 6 entries"
 # define MSG_TEXTURE_FILE_OPEN "Cannot open texture file"
 # define MSG_INVALID_COLOR "Invalid color format (use R,G,B)"
 # define MSG_COLOR_RANGE "Color values must be 0-255"
+# define MSG_TEXTURE_PATH_LENGTH "Texture path is too short"
+# define MSG_INVALID_TEXTURE_EXTENSION "Texture must end with .xpm"
+# define MSG_DOUBLE_MAP "Map has unreachable sections (double map)"
+# define MSG_MLX_INIT "MLX initialization failed"
+# define MSG_TEXTURE_LOAD "Texture loading failed"
+# define MSG_WINDOW_INIT "MLX window initialization failed"
+# define MSG_DATA_INIT "Data initialization failed"
 
 void	print_error(const char *msg);
 int		file_ends_with_next_line(const char *file_path);

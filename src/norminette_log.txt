@@ -1,0 +1,23 @@
+Setting locale to en_US
+06_validate_map_walls.c: OK!
+07_validate_map_reachability.c: OK!
+99_utils.c: OK!
+02_validate_config_arrays.c: OK!
+03_validate_texture_lines.c: OK!
+04_validate_color_lines.c: OK!
+05_validate_map_grid.c: OK!
+00_validate_cub_file.c: OK!
+01_populate_rawdatastruct.c: Error!
+Error: LINE_TOO_LONG        (line:   4, col:   1):	[94mline too long[0m
+Error: LINE_TOO_LONG        (line:   4, col:  85):	[94mline too long[0m
+Error: LINE_TOO_LONG        (line:  91, col:  83):	[94mline too long[0m
+00_parse_coordinator.c: OK!
+01_parse_map_config.c: OK!
+02_parse_config_utils.c: OK!
+03_parse_color_rgb.c: OK!
+04_normalize_grid_padding.c: OK!
+05_locate_player_coords.c: OK!
+98_parse_utils.c: OK!
+00_init_coordinator.c: OK!
+01_init_mlx_textures.c: OK!
+02_init_player_vectors.c: OK!
