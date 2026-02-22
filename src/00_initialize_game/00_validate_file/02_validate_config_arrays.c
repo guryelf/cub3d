@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 02:22:55 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/22 23:47:18 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/23 00:22:00 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ void	free_rawdata(t_rawdata *rawdata)
 	if (!rawdata)
 		return ;
 	free_str_array(rawdata->textures);
+	rawdata->textures = NULL;
 	free_str_array(rawdata->colors);
+	rawdata->colors = NULL;
 	free_str_array(rawdata->grid);
+	rawdata->grid = NULL;
 	free(rawdata);
 }
 

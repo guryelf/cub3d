@@ -6,7 +6,7 @@
 /*   By: rakman <rakman@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 23:28:00 by rakman            #+#    #+#             */
-/*   Updated: 2026/02/22 23:34:52 by rakman           ###   ########.fr       */
+/*   Updated: 2026/02/23 00:47:55 by rakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	parse_textures(char **textures, t_map *map)
 	{
 		line = skip_spaces(textures[i]);
 		if (line[0] == 'N')
-			map->no_path = ft_strdup(skip_spaces(line + 2));
+			map->no_path = extract_path(line);
 		else if (line[0] == 'S')
-			map->so_path = ft_strdup(skip_spaces(line + 2));
+			map->so_path = extract_path(line);
 		else if (line[0] == 'W')
-			map->we_path = ft_strdup(skip_spaces(line + 2));
+			map->we_path = extract_path(line);
 		else if (line[0] == 'E')
-			map->ea_path = ft_strdup(skip_spaces(line + 2));
+			map->ea_path = extract_path(line);
 		i++;
 	}
 	if (!map->no_path || !map->so_path || !map->we_path || !map->ea_path)

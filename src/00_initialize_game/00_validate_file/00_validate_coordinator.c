@@ -76,5 +76,10 @@ t_rawdata	*validate_cub_file(const char *file_path)
 		free_rawdata(raw_data);
 		return (NULL);
 	}
+	if (validate_map_grid(raw_data) != 0)
+	{
+		free_rawdata(raw_data);
+		return (NULL);
+	}
 	return (raw_data);
 }

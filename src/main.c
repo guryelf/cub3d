@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	if (parse_cub_file(rawdata, &game.map) != 0)
 		return (free_rawdata(rawdata), free_map_data(&game.map), 1);
 	if (init_game_resources(&game) != 0)
-		return (free_rawdata(rawdata), free_map_data(&game.map), 1);
+		return (free_rawdata(rawdata), clean_exit(&game), 1);
 	free_rawdata(rawdata);
 	start_game(&game);
 	return (0);

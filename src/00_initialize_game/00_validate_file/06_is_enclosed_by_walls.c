@@ -49,7 +49,8 @@ int	is_enclosed_by_walls(t_map *tempmap)
 		x = 0;
 		while (x < row_len)
 		{
-			if (tempmap->grid[y][x] == '0')
+			if (tempmap->grid[y][x] == '0'
+				|| is_player_char(tempmap->grid[y][x]))
 				if (has_zero_open_neighbor(tempmap, x, y))
 					return (print_error(MSG_MAP_NOT_ENCLOSED), 1);
 			x++;
