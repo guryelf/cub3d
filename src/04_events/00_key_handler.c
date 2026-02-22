@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_key_handler.c                                   :+:      :+:    :+:   */
+/*   00_key_handler.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguryel <fguryel@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,7 +15,10 @@
 int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == 65307)
+	{
 		clean_exit(game);
+		exit(0);
+	}
 	else if (keycode == 119)
 		move_forward(game);
 	else if (keycode == 115)

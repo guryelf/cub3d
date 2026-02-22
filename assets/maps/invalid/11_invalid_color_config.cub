@@ -1,0 +1,11 @@
+NO assets/textures/valid/north_wall.xpm
+SO assets/textures/valid/south_wall.xpm
+WE assets/textures/valid/west_wall.xpm
+EA assets/textures/valid/east_wall.xpm
+
+F 239,100,233 extra_garbage
+C 135,206,235
+
+1111111
+100N111
+1111111

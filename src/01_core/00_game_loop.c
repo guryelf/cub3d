@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_game_loop.c                                     :+:      :+:    :+:   */
+/*   00_game_loop.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguryel <fguryel@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,6 +21,7 @@ int	game_loop(t_game *game)
 int	handle_close(t_game *game)
 {
 	clean_exit(game);
+	exit(0);
 	return (0);
 }
 

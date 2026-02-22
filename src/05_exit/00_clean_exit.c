@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_clean_exit.c                                   :+:      :+:    :+:   */
+/*   00_clean_exit.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguryel <fguryel@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,18 +12,27 @@
 
 #include "../../inc/cub3d.h"
 
+static void	free_texture_paths(t_map *map)
+{
+	if (map->no_path)
+		free(map->no_path);
+	map->no_path = NULL;
+	if (map->so_path)
+		free(map->so_path);
+	map->so_path = NULL;
+	if (map->we_path)
+		free(map->we_path);
+	map->we_path = NULL;
+	if (map->ea_path)
+		free(map->ea_path);
+	map->ea_path = NULL;
+}
+
 void	free_map_data(t_map *map)
 {
 	int	i;
 
-	if (map->no_path)
-		free(map->no_path);
-	if (map->so_path)
-		free(map->so_path);
-	if (map->we_path)
-		free(map->we_path);
-	if (map->ea_path)
-		free(map->ea_path);
+	free_texture_paths(map);
 	if (map->grid)
 	{
 		i = 0;
@@ -34,6 +43,7 @@ void	free_map_data(t_map *map)
 			i++;
 		}
 		free(map->grid);
+		map->grid = NULL;
 	}
 	get_next_line(-1);
 }
@@ -59,6 +69,5 @@ int	clean_exit(t_game *game)
 		free(game->mlx);
 	}
 	free_map_data(&game->map);
-	exit(0);
 	return (0);
 }
